@@ -1,4 +1,5 @@
-name: Enforce PR
+# .github/workflows/block-direct-pushes.yml
+name: Block Direct Pushes to Develop
 
 on:
   push:
@@ -6,10 +7,11 @@ on:
       - develop
 
 jobs:
-  enforce-pr:
+  block-direct-push:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Ensure PR
+      - name: Block Direct Pushes
         run: |
           echo "Direct push to develop branch is not allowed. Please use pull requests."
           exit 1
