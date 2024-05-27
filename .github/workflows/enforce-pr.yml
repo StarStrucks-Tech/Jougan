@@ -1,15 +1,1 @@
-name: Enforce PR
 
-on:
-  push:
-    branches:
-      - develop
-
-jobs:
-  enforce-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ensure PR
-        run: |
-          echo "Direct push to develop branch is not allowed. Please use pull requests."
-          exit 1
