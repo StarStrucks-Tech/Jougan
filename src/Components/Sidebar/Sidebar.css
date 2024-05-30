@@ -1,0 +1,38 @@
+.sidebar-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  background: linear-gradient(to bottom, #3E6747 0%, #0C1320 100%);
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  padding: 70px 10px 10px 10px;
+
+}
+
+.sidebar img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  
+
+
+}
+.sidebar img:hover {
+  background-color: #575757;
+  border-radius: 4px;
+}
+.sidebar img.active {
+  border: 5px solid grey;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background: #f0f0f0; /* Example content background color */
+}
