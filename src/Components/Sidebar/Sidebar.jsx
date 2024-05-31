@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
-import homeIcon from '../../assets/Vector.png';
-import ticketIcon from '../../assets/ticket-confirmation-outline.png';
-import userIcon from '../../assets/account-box.png';
+import { ICONS, ACTIVE_ICONS, ACTIVE_CLASS } from '../../constants';
 const Sidebar = () => {
-  const [activeIcon, setActiveIcon] = useState('home');
-
+  const [activeIcon, setActiveIcon] = useState(ACTIVE_ICONS.HOME);
   return (
     <div className="sidebar-container">
       <div className="sidebar">
         <Link to="/home">
           <img
-            src={homeIcon}
+            src={ICONS.HOME}
             alt="Home"
-            className={activeIcon === 'home' ? 'active' : ''}
-            onClick={() => setActiveIcon('home')}
+            className={activeIcon === ACTIVE_ICONS.HOME ? ACTIVE_CLASS : ''}
+            onClick={() => setActiveIcon(ACTIVE_ICONS.HOME)}
           />
         </Link>
         <Link to="/ticket">
           <img
-            src={ticketIcon}
+            src={ICONS.TICKET}
             alt="Ticket"
-            className={activeIcon === 'ticket' ? 'active' : ''}
-            onClick={() => setActiveIcon('ticket')}
+            className={activeIcon === ACTIVE_ICONS.TICKET ? ACTIVE_CLASS : ''}
+            onClick={() => setActiveIcon(ACTIVE_ICONS.TICKET)}
           />
         </Link>
         <Link to="/home">
           <img
-            src={userIcon}
+            src={ICONS.USER}
             alt="User"
-            className={activeIcon === 'user' ? 'active' : ''}
-            onClick={() => setActiveIcon('user')}
+            className={activeIcon === ACTIVE_ICONS.USER ? ACTIVE_CLASS : ''}
+            onClick={() => setActiveIcon(ACTIVE_ICONS.USER)}
           />
         </Link>
       </div>
