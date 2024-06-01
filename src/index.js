@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/*
+ * React.StrictMode is being removed for the following reasons:
+ * 1. Development-Only Warnings: The additional warnings provided by StrictMode 
+ *    are causing confusion and are not currently providing significant value.
+ * 2. Third-Party Library Issues: Certain third-party libraries used in this project 
+ *    mau not fully be compatible with StrictMode, leading to unnece originssary warnings.
+ * 3. Double Rendering: StrictMode intentionally double-invokes lifecycle methods 
+ *    to detect side effects, but this is causing unexpected behaviors during development.
+ * 
+ * Note: Removing StrictMode does not affect the production build and the decision
+ *       can be revisited later as needed.
+ */
+root.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+
+);
