@@ -1,7 +1,7 @@
-// src/utils/networkHelper.js
 const { db } = require('../config/firebaseAdmin');
 const { admin } = require('../config/firebaseAdmin');
 
+  // Create a new ticket in the Firestore database
 const createTicket = async (ticketData) => {
   try {
     const newTicketRef = db.collection('tickets').doc();
@@ -17,6 +17,7 @@ const createTicket = async (ticketData) => {
   }
 };
 
+//Update the status of an existing ticket
 const updateStatus = async (ticketId, status) => {
   try {
     await db.collection('tickets').doc(ticketId).update({ status });
@@ -27,6 +28,7 @@ const updateStatus = async (ticketId, status) => {
   }
 };
 
+//View tickets based on provided filters
 const viewTickets = async (filters = {}) => {
   try {
     let query = db.collection('tickets');
@@ -50,18 +52,22 @@ const viewTickets = async (filters = {}) => {
   }
 };
 
+//View tickets for a specific user ID
 const viewTicketsForUserID = async (userId) => {
   return viewTickets({ userId });
 };
 
+//View tickets for a specific product
 const viewTicketsForProject = async (product) => {
   return viewTickets({ product });
 };
 
+//View tickets according to their status
 const viewTicketsAccordingToStatus = async (status) => {
   return viewTickets({ status });
 };
 
+//View tickets based on a custom query
 const viewTicketsForQuery = async (query) => {
   try {
     const snapshot = await db.collection('tickets').where(query.field, '==', query.value).get();
@@ -73,6 +79,56 @@ const viewTicketsForQuery = async (query) => {
   }
 };
 
+//Perform a query with an equality condition
+const queryWithEquality = async (collection, field, value) => {
+  try {
+    const snapshot = await db.collection(collection).where(field, '==', value).get();
+    return snapshot;
+  } catch (error) {
+    throw new Error(`Error querying ${collection} by ${field} == ${value}: ${error.message}`);
+  }
+};
+
+//Fetch a document by ID
+const fetchDocument = async (collection, docId) => {
+  try {
+    const doc = await db.collection(collection).doc(docId).get();
+    if (!doc.exists) {
+      throw new Error(`No document found with ID ${docId} in collection ${collection}`);
+    }
+    return doc;
+  } catch (error) {
+    throw new Error(`Error fetching document ${docId} from ${collection}: ${error.message}`);
+  }
+};
+
+//Fetch all documents in a collection
+const fetchAllDocumentsInCollection = async (collection) => {
+  try {
+    const snapshot = await db.collection(collection).get();
+    return snapshot;
+  } catch (error) {
+    throw new Error(`Error fetching documents from collection ${collection}: ${error.message}`);
+  }
+};
+
+//Fetch a document inside a nested collection
+const fetchNestedDocument = async (parentCollection, parentDocId, childCollection, childDocId) => {
+  try {
+    const doc = await db.collection(parentCollection)
+                        .doc(parentDocId)
+                        .collection(childCollection)
+                        .doc(childDocId)
+                        .get();
+    if (!doc.exists) {
+      throw new Error(`No document found with ID ${childDocId} in collection ${childCollection} under ${parentCollection}/${parentDocId}`);
+    }
+    return doc;
+  } catch (error) {
+    throw new Error(`Error fetching document ${childDocId} from ${childCollection} under ${parentCollection}/${parentDocId}: ${error.message}`);
+  }
+};
+
 module.exports = {
   createTicket,
   updateStatus,
@@ -80,5 +136,9 @@ module.exports = {
   viewTicketsForUserID,
   viewTicketsForProject,
   viewTicketsAccordingToStatus,
-  viewTicketsForQuery
+  viewTicketsForQuery,
+  queryWithEquality,
+  fetchDocument,
+  fetchAllDocumentsInCollection,
+  fetchNestedDocument
 };
