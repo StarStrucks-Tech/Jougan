@@ -1,11 +1,20 @@
-// src/Screens/Home/Home.jsx
+// src/screens/Home/Home.jsx
 import React from 'react';
 import { useError } from '../../contexts/ErrorContext';
 
+/**
+ * Home component that serves as the home page.
+ * Includes a button to trigger an error for demonstration purposes.
+ * @returns {JSX.Element} The home page element
+ */
 const Home = () => {
-  const { showError } = useError();
+  const { toggleErrorState } = useError();
+
+  /**
+   * Handle button click to trigger an error.
+   */
   const handleClick = () => {
-    showError('This is a test error message.');
+    toggleErrorState('This is a test error message.');
   };
 
   return (
