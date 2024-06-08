@@ -3,6 +3,10 @@ import React from 'react';
 import { useError } from '../../contexts/ErrorContext';
 import './ErrorModal.css';
 
+/**
+ * ErrorModal component that displays an error message when an error occurs.
+ * @returns {JSX.Element|null} The error modal element or null if no error
+ */
 const ErrorModal = () => {
   const { error, toggleErrorState } = useError();
 
