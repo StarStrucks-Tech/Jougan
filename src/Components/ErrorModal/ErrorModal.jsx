@@ -15,12 +15,14 @@ const ErrorModal = () => {
   return (
     <div className="error-modal-overlay">
       <div className="error-modal">
-        <button className="close-button" onClick={() => toggleErrorState(null)}>×</button>
-        <div className="error-modal-content">
-          <div className="error-icon">✖️</div>
+        <div className="error-modal-header">
+          <span className="error-modal-close" onClick={() => toggleErrorState(null)}>&times;</span>
+        </div>
+        <div className="error-modal-body">
+          <div className="error-icon">×</div>
           <h2>Ooops!</h2>
-          <p>{error}</p>
-          <button className="try-again-button" onClick={() => toggleErrorState(null)}>Try Again</button>
+          <p>Something went wrong. {error}</p>
+          <button className="error-button" onClick={() => toggleErrorState(null)}>Try Again</button>
         </div>
       </div>
     </div>

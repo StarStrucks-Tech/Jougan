@@ -2,11 +2,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Home from './screens/Home/Home';
-import TicketDetails from './screens/TicketDetails/TicketDetails';
-import Sidebar from './components/Sidebar/Sidebar';
+import Home from './Screens/Home/Home';
+import TicketDetails from './Screens/TicketDetails/TicketDetails';
+import Sidebar from './Components/Sidebar/Sidebar';
 import { ErrorProvider } from './contexts/ErrorContext';
-import ErrorModal from './components/ErrorModal/ErrorModal';
+import ErrorModal from './Components/ErrorModal/ErrorModal';
 
 /**
  * App component that sets up the main application structure.
@@ -16,7 +16,7 @@ import ErrorModal from './components/ErrorModal/ErrorModal';
 function App() {
   return (
     <ErrorProvider>
-      <Router>
+
         <div className="app">
           <Sidebar />
           <div className="main-content">
@@ -28,7 +28,7 @@ function App() {
           </div>
           <ErrorModal />
         </div>
-      </Router>
+
     </ErrorProvider>
   );
 }
