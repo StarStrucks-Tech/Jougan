@@ -8,16 +8,12 @@ export const useError = () => useContext(ErrorContext);
 export const ErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
-  const showError = (message) => {
+  const toggleErrorState = (message) => {
     setError(message);
   };
 
-  const hideError = () => {
-    setError(null);
-  };
-
   return (
-    <ErrorContext.Provider value={{ error, showError, hideError }}>
+    <ErrorContext.Provider value={{ error, toggleErrorState }}>
       {children}
     </ErrorContext.Provider>
   );
