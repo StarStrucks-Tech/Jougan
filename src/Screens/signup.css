@@ -1,0 +1,237 @@
+/* Flex container for the entire page */
+.flex-container {
+    display: flex;
+  }
+  
+  /* Form container styles */
+  .form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+  }
+  
+  /* Title styles */
+  .title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-family: sans-serif;
+  }
+  
+  /* Form styles */
+  .form {
+    width: 100%;
+    max-width: 24rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+    font-size: small;
+  }
+  
+  /* Label styles */
+  .label {
+    display: block;
+    color: #4a5568;
+    font-size: 0.875rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Input styles */
+  .input {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    color: #4a5568;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(17, 123, 65, 0.5);
+  }
+  
+  /* Checkbox group styles */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    color: #08111d;
+    font-weight: bold;
+  }
+  
+  .checkbox {
+    margin-right: 0.5rem;
+  }
+  
+  .link {
+    color: #11426b;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .link:hover {
+    color: #2b6cb0;
+  }
+  
+  /* Button styles */
+  .button {
+    background-color: #40B549;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.50rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .button:hover {
+    background-color: #217247;
+  }
+  
+  /* Divider styles */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .divider span {
+    color: #0c1a2c;
+    margin: 0 0.5rem;
+  }
+  
+  /* Google button styles */
+  .button-google {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .button-google:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  .google-logo {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Image container styles */
+  .image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #3D6546, #0E1722);
+  }
+  
+  .subtitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+  }
+
+  .subtitle1{
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+  
+  .image {
+    margin-left: 40px;
+    margin-bottom: 30px;
+  }
+
+  .first-line {
+        color: white
+  }
+
+  .spanele{
+    color: #7CC242
+  }
+  .text-center{
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .flex-container {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .image-container {
+      width: 100%;
+    }
+    .form-container
+  
+    .form-container {
+      padding: 1rem;
+    }
+  
+    .image {
+      margin-left: 0;
+      margin-bottom: 1rem;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .form {
+      max-width: 20rem;
+    }
+  
+    .subtitle,
+    .subtitle1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.25rem;
+    }
+  
+    .subtitle,
+    .subtitle1 {
+      font-size: 1.25rem;
+    }
+  
+    .form {
+      max-width: 18rem;
+    }
+  }

@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 import { ICONS, ACTIVE_ICONS, ACTIVE_CLASS } from '../../constants';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebase.config';
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await signOut(auth);
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('user');
+    navigate("/login");
+  }
   const [activeIcon, setActiveIcon] = useState(ACTIVE_ICONS.HOME);
   return (
     <div className="sidebar-container">
@@ -25,10 +35,10 @@ const Sidebar = () => {
         </Link>
         <Link to="/home">
           <img
-            src={ICONS.USER}
+            src={ICONS.LOGOUT}
             alt="User"
             className={activeIcon === ACTIVE_ICONS.USER ? ACTIVE_CLASS : ''}
-            onClick={() => setActiveIcon(ACTIVE_ICONS.USER)}
+            onClick={handleLogout}
           />
         </Link>
       </div>
