@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../Screens/login.css';
-import { IMAGES } from '../constants';
+import { IMAGES, TOAST_MESSAGES } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase.config';
@@ -18,12 +18,12 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("User Registered Successfully!", {
+      toast.success(TOAST_MESSAGES.LOGIN_SUCCESS, {
         position: "top-center",
       });
       navigate("/home");
     } catch (error) {
-      toast.error(error.message, {
+      toast.error(TOAST_MESSAGES.LOGIN_FAILURE, {
         position: "bottom-center",
       });
     }

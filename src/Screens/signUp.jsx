@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IMAGES } from '../constants';
+import { IMAGES, TOAST_MESSAGES } from '../constants';
 import '../Screens/signup.css';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../config/firebase.config';
@@ -27,15 +27,13 @@ const SignInPage = () => {
         });
       }
       //console.log("user registered successfully");
-      toast.success("User Registered Successfully!",{
+      toast.success(TOAST_MESSAGES.SIGNUP_SUCCESS,{
         position: "top-center",
       });
-      // localStorage.setItem('token', user.accessToken);
-      // localStorage.setItem('user', JSON.stringify(user));
       navigate("/home");
     } catch (error) {
       //console.log(error);
-      toast.error(error.message,{
+      toast.error(TOAST_MESSAGES.SIGNUP_FAILURE,{
         position: "bottom-center"
       })
     }

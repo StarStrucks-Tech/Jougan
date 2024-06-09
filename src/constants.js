@@ -11,6 +11,15 @@ export const ICONS = {
   LOGOUT: LOGOUT_ICON,
 };
 
+export const TOAST_MESSAGES = {
+  SIGN_OUT_SUCCESS: "Successfully signed out!",
+  SIGN_OUT_FAILURE: "Failed to sign out. Please try again.",
+  LOGIN_SUCCESS: "User logged in Successfully!",
+  LOGIN_FAILURE: "Failed to login. Please try again.",
+  SIGNUP_SUCCESS: "User Registered Successfully!",
+  SIGNUP_FAILURE: "Failed to signup. Please try again."
+};
+
 export const ACTIVE_ICONS = {
   HOME: 'home',
   TICKET: 'ticket',
