@@ -1,0 +1,219 @@
+/* Container for the entire page */
+.container {
+    display: flex;
+    height: 94vh;
+  }
+  
+  /* Image section styles */
+  .image-section {
+    flex: 1;
+    background: linear-gradient(to bottom, #3D6546, #0E1722);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+    word-spacing: 4;
+  }
+
+  .subtitle1{
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+  
+  .illustration {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Form section styles */
+  .form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 2rem;
+  }
+  
+  .form-title {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form {
+    width: 100%;
+    max-width: 24rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* Label styles */
+  .label {
+    display: block;
+    color: #4a5568;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Input styles */
+  .input {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #48bb78;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 0.75rem;
+    color: #4a5568;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  /* Checkbox group styles */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    color: #4a5568;
+  }
+  
+  .checkbox {
+    margin-right: 0.5rem;
+  }
+  
+  .forgot-password {
+    color: #08233a;
+    font-weight: bold;
+    font-size: 0.875rem;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .forgot-password:hover {
+    color: #2b6cb0;
+  }
+  
+  /* Button styles */
+  .button {
+    background-color: #48bb78;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #38a169;
+  }
+  
+  /* Divider styles */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0;
+    color: #4a5568;
+  }
+  
+  /* Google button styles */
+  .button-google {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .button-google:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  .google-logo {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Signup link styles */
+  .signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .signup-link span {
+    color: #4a5568;
+  }
+  
+  .signup-link a {
+    color: #113657;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .signup-link a:hover {
+    color: #2b6cb0;
+  }
+  /* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .image-section, .form-section {
+    flex: none;
+    width: 100%;
+  }
+  
+  .form-section {
+    padding: 1rem;
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+  }
+  
+  .form {
+    max-width: 20rem;
+  }
+}
