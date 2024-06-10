@@ -24,12 +24,13 @@ const Sidebar = () => {
   return (
     <div className="sidebar-container">
       <div className="sidebar">
-        <Link to="/home">
+        <Link to="/dashboard">
           <img
             src={ICONS.HOME}
             alt="Home"
             className={activeIcon === ACTIVE_ICONS.HOME ? ACTIVE_CLASS : ''}
             onClick={() => setActiveIcon(ACTIVE_ICONS.HOME)}
+
           />
         </Link>
         <Link to="/ticket">

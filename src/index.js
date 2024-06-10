@@ -1,25 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './index.css';
 import App from './App';
+import { AuthProvider } from './context/authContext'; // Adjust the path if necessary
+import { createRoot } from 'react-dom/client';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-/*
- * React.StrictMode is being removed for the following reasons:
- * 1. Development-Only Warnings: The additional warnings provided by StrictMode 
- *    are causing confusion and are not currently providing significant value.
- * 2. Third-Party Library Issues: Certain third-party libraries used in this project 
- *    mau not fully be compatible with StrictMode, leading to unnece originssary warnings.
- * 3. Double Rendering: StrictMode intentionally double-invokes lifecycle methods 
- *    to detect side effects, but this is causing unexpected behaviors during development.
- * 
- * Note: Removing StrictMode does not affect the production build and the decision
- *       can be revisited later as needed.
- */
 root.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-
+  <React.StrictMode>
+    <AuthProvider>
+      <Router>
+        <App />
+      </Router>
+    </AuthProvider>
+  </React.StrictMode>
 );
