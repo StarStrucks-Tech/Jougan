@@ -6,7 +6,6 @@ import { useError } from '../../contexts/ErrorContext';
  * InfoCollectorModal component that collects additional information from the user in a modal.
  * @param {object} props - Component props
  * @param {boolean} props.isVisible - Whether the modal is visible
- * @param {function} props.onClose - Function to close the modal
  * @param {function} props.onSuccess - Function to call on successful submission
  * @returns {JSX.Element} The info collector modal
  */
@@ -14,10 +13,17 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
   const [githubId, setGithubId] = useState('');
   const { toggleErrorState } = useError();
   const navigate = useNavigate();
+  const validateGithubId = (id) => {
+    const githubIdRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+    return githubIdRegex.test(id);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!githubId) {
       toggleErrorState('GitHub ID is required');
+    } else if (!validateGithubId(githubId)) {
+      toggleErrorState('Invalid GitHub ID format');
     } else {
       console.log('GitHub ID:', githubId);
       navigate('/home');
