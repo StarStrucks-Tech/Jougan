@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 import { ICONS, ACTIVE_ICONS, ACTIVE_CLASS } from '../../constants';
+import { ROUTES } from '../../../constants/route';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
 import { toast } from 'react-toastify';
@@ -9,14 +10,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TOAST_MESSAGES } from '../../constants';
 const Sidebar = () => {
 
+  // Initialize navigate function from react-router-dom
   const navigate = useNavigate();
+  // This function handles the logout processs
   const handleLogout = async () => {
     try {
+      // Sign out the user
       await signOut(auth);
       toast.success(TOAST_MESSAGES.SIGN_OUT_SUCCESS);
-      navigate("/login");
+      // Navigate to the login page
+      navigate(ROUTES.LOGIN);
     } catch (error) {
-      console.error("Failed to sign out:", error);
+      //console.error("Failed to sign out:", error);
       toast.error(TOAST_MESSAGES.SIGN_OUT_FAILURE);
     }
   }

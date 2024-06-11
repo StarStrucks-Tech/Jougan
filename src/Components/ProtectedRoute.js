@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import { ROUTES } from '../../constants/route';
 
 // ProtectedRoute component to guard routes based on authentication status
 const ProtectedRoute = ({ children }) => {
@@ -9,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
   // If there is no authenticated user, redirect to the login page
   if (!currentUser) {
-    return <Navigate to="/login" />;
+    return <Navigate to={ROUTES.LOGIN} />;
   }
 
   // If the user is authenticated, render the children components
