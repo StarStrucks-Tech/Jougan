@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
-import { ICONS, ACTIVE_ICONS, ACTIVE_CLASS } from '../../constants';
-import { ROUTES } from '../../../constants/route';
+import { ICONS, ACTIVE_ICONS, ACTIVE_CLASS } from '../../constants/constants';
+import { ROUTES } from '../../constants/route';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { TOAST_MESSAGES } from '../../constants';
+import { TOAST_MESSAGES } from '../../constants/constants';
 const Sidebar = () => {
 
   // Initialize navigate function from react-router-dom

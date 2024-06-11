@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../Screens/login.css'; 
-import { IMAGES, TOAST_MESSAGES } from '../constants'; 
+import { IMAGES, TOAST_MESSAGES } from '../constants/constants'; 
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth'; // Importing Firebase authentication function
 import { auth } from '../config/firebase.config'; // Importing Firebase configuration
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; // Importing toastify CSS
 import SignInWithGoogle from '../Components/SignInWithGoogle'; // Importing Google sign-in component
-import { ROUTES } from '../../constants/route';
+import { ROUTES } from '../constants/route';
 
 // Functional component for the login page
 const LoginPage = () => {

@@ -4,10 +4,10 @@ import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth, db } from '../config/firebase.config';
 import { toast } from 'react-toastify';
 import '../Screens/login.css';
-import { IMAGES, TOAST_MESSAGES } from '../../constants/constants';
+import { IMAGES, TOAST_MESSAGES } from '../constants/constants';
 import { doc, setDoc } from 'firebase/firestore';
-import { ROUTES } from '../../constants/route';
-import { DB_COLLECTIONS } from '../../constants/dbconstants';
+import { ROUTES } from '../constants/route';
+import { DB_COLLECTIONS } from '../constants/dbconstants';
 
 // Component for signing in with Google
 function SignInWithGoogle() {

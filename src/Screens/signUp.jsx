@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IMAGES, TOAST_MESSAGES } from '../constants'; 
+import { IMAGES, TOAST_MESSAGES } from '../constants/constants'; 
 import '../Screens/signup.css';
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importing Firebase authentication function
 import { auth, db } from '../config/firebase.config'; // Importing Firebase configuration for auth and Firestore
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore'; // Importing Firestore functions for document creation
 import { toast } from 'react-toastify'; 
 import SignInWithGoogle from '../Components/SignInWithGoogle'; // Importing Google sign-in component
-import { ROUTES } from '../../constants/route';
+import { ROUTES } from '../constants/route';
 
 // Functional component for the sign-in page
 const SignInPage = () => {

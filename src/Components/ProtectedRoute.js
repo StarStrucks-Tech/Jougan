@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
-import { ROUTES } from '../../constants/route';
+import { ROUTES } from '../constants/route';
 
 // ProtectedRoute component to guard routes based on authentication status
 const ProtectedRoute = ({ children }) => {
