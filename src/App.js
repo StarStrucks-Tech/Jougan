@@ -9,8 +9,16 @@ import LoginPage from './Screens/login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Components/ProtectedRoute'; // Import ProtectedRoute
+import { auth } from './config/firebase.config';
+
 
 function App() {
+  const [user, setUser] = useState();
+  useEffect(()=>{
+    auth.onAuthStateChanged(user=>{
+      setUser(user);
+    })
+  })
   return (
     <div className="app">
       <ToastContainer /> {/* Add ToastContainer here */}
