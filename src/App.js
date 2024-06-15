@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Dashboard from './Screens/Dashboard';
@@ -14,6 +14,7 @@ import { auth } from './config/firebase.config';
 
 function App() {
   const [user, setUser] = useState();
+  console.log(user)
   useEffect(()=>{
     auth.onAuthStateChanged(user=>{
       setUser(user);

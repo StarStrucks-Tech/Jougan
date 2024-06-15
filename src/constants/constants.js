@@ -1,9 +1,9 @@
-import HOME_ICON from './assets/Vector.png';
-import TICKET_ICON from './assets/ticket-confirmation-outline.png';
-import LOGOUT_ICON from './assets/Group 49.png';
-import WOMEN_IMAGE from './assets/women.png';
-import LOGIN_IMAGE from './assets/logintravel.png';
-import GOOGLE_IMAGE from './assets/g-logo.png';
+import HOME_ICON from '../assets/Vector.png';
+import TICKET_ICON from '../assets/ticket-confirmation-outline.png';
+import LOGOUT_ICON from '../assets/Group 49.png';
+import WOMEN_IMAGE from '../assets/women.png';
+import LOGIN_IMAGE from '../assets/logintravel.png';
+import GOOGLE_IMAGE from '../assets/g-logo.png';
 
 export const ICONS = {
   HOME: HOME_ICON,
