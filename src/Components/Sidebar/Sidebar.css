@@ -1,22 +1,23 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 .sidebar-container {
   display: flex;
   height: 100vh;
 }
-
 .sidebar {
   background: linear-gradient(to bottom, #3E6747 0%, #0C1320 100%);
-  width: 50px;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
   padding: 70px 10px 10px 10px;
-
 }
-
 .sidebar img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   margin-bottom: 20px;
   cursor: pointer;
 }
