@@ -1,9 +1,9 @@
-import HOME_ICON from './assets/Vector.png';
-import TICKET_ICON from './assets/ticket-confirmation-outline.png';
-import LOGOUT_ICON from './assets/Group 49.png';
-import WOMEN_IMAGE from './assets/women.png';
-import LOGIN_IMAGE from './assets/logintravel.png';
-import GOOGLE_IMAGE from './assets/g-logo.png';
+import HOME_ICON from '../assets/Vector.png';
+import TICKET_ICON from '../assets/ticket-confirmation-outline.png';
+import LOGOUT_ICON from '../assets/Group 49.png';
+import WOMEN_IMAGE from '../assets/women.png';
+import LOGIN_IMAGE from '../assets/logintravel.png';
+import GOOGLE_IMAGE from '../assets/g-logo.png';
 
 export const ICONS = {
   HOME: HOME_ICON,
@@ -17,7 +17,9 @@ export const TOAST_MESSAGES = {
   LOGIN_SUCCESS: "User logged in Successfully!",
   LOGIN_FAILURE: "Failed to login. Please try again.",
   SIGNUP_SUCCESS: "User Registered Successfully!",
-  SIGNUP_FAILURE: "Failed to signup. Please try again."
+  SIGNUP_FAILURE: "Failed to signup. Please try again.",
+  SIGNINWITHGOOGLE_SUCCESS: "Signed in with Google successfully!",
+  SIGNINWITHGOOGLE_FAILURE: "Failed to sign in with google, Please try again"
 };
 
 export const ACTIVE_ICONS = {
