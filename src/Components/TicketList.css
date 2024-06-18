@@ -1,0 +1,22 @@
+.ticket-list {
+    flex: 1;
+    padding: 20px;
+    background-color: #ecf0f1;
+  }
+  
+  .ticket-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .ticket-list th, .ticket-list td {
+    border: 1px solid #bdc3c7;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .ticket-list th {
+    background-color: #34495e;
+    color: white;
+  }
+  

@@ -1,5 +1,4 @@
-const { db } = require('../config/firebaseAdmin');
-const { admin } = require('../config/firebaseAdmin');
+import { db } from "../config/firebase.config";
 
   // Create a new ticket in the Firestore database
 const createTicket = async (ticketData) => {
@@ -8,7 +7,7 @@ const createTicket = async (ticketData) => {
     await newTicketRef.set({
       ...ticketData,
       ticketId: newTicketRef.id,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
+      createdAt: fetchAllDocumentsInCollection.firestore.FieldValue.serverTimestamp()
     });
     return { success: true, id: newTicketRef.id };
   } catch (error) {
@@ -129,7 +128,7 @@ const fetchNestedDocument = async (parentCollection, parentDocId, childCollectio
   }
 };
 
-module.exports = {
+export{
   createTicket,
   updateStatus,
   viewTickets,

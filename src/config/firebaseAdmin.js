@@ -1,6 +1,10 @@
-// src/config/firebaseAdmin.js
-const admin = require('firebase-admin');
-const serviceAccount = require('../serviceAccount.json');
+import admin from 'firebase-admin';
+import { readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const serviceAccount = JSON.parse(readFileSync(join(__dirname, '../serviceAccount.json'), 'utf8'));
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -9,4 +13,4 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-module.exports = { admin, db };
+export { admin, db };
