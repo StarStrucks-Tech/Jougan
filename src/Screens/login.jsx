@@ -1,50 +1,57 @@
 import React, { useState } from 'react';
-import '../Screens/login.css'; 
-import { IMAGES, TOAST_MESSAGES } from '../constants/constants'; 
+import '../Screens/login.css';
+import { IMAGES, TOAST_MESSAGES } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Importing Firebase authentication function
-import { auth } from '../config/firebase.config'; // Importing Firebase configuration
-import { toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; // Importing toastify CSS
-import SignInWithGoogle from '../Components/SignInWithGoogle'; // Importing Google sign-in component
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/firebase.config';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import SignInWithGoogle from '../Components/SignInWithGoogle';
 import { ROUTES } from '../constants/route';
-
+import { useError } from '../contexts/ErrorContext';
+import InfoCollectorModal from '../Components/InfoCollectorModal/InfoCollectorModal';
 // Functional component for the login page
 const LoginPage = () => {
-  // State hooks for email and password
+  // State hooks for email, password, and modal visibility
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showInfoCollector, setShowInfoCollector] = useState(false);
+  const { toggleErrorState } = useError();
 
   // Initialize navigate function from react-router-dom
   const navigate = useNavigate();
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     try {
-      // Sign in with email and password using Firebase authentication
       await signInWithEmailAndPassword(auth, email, password);
       toast.success(TOAST_MESSAGES.LOGIN_SUCCESS, {
         position: "top-center",
       });
-      // Navigate to the home page upon successful login
       navigate(ROUTES.DASHBOARD);
+      setShowInfoCollector(true);
     } catch (error) {
       toast.error(TOAST_MESSAGES.LOGIN_FAILURE, {
         position: "bottom-center",
       });
+      toggleErrorState(error.message);
     }
+  };
+
+  // Function to handle modal close and navigate to the home page
+  const handleModalSuccess = () => {
+    setShowInfoCollector(false);
+    navigate(ROUTES.DASHBOARD);
   };
 
   return (
     <div className="container">
-      {/* Section for the illustration and titles */}
       <div className="image-section">
         <h2 className="subtitle">Stay On Track</h2>
         <h2 className="subtitle1">with <span className='spanele'>Ticket Tracker</span></h2>
         <img src={IMAGES.LOGIN} height={480} width={360} alt="Illustration" className="illustration" />
       </div>
-      {/* Section for the login form */}
       <div className="form-section">
         <h1 className="form-title">WELCOME BACK !</h1>
         <form className="form" onSubmit={handleSubmit}>
@@ -76,7 +83,9 @@ const LoginPage = () => {
           </div>
         </form>
       </div>
+{/* {      (showInfoCollector? <InfoCollectorModal isVisible={showInfoCollector} onSuccess={handleModalSuccess} /> : <></>)  } */}
     </div>
+
   );
 };
 

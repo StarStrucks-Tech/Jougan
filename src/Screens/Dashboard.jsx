@@ -3,9 +3,11 @@ import TicketList from '../Components/TicketList';
 import Stats from '../Components/Stats';
 import { viewTickets } from '../utils/networkHelper'; // Importing function to fetch tickets
 import './Dashboard.css'; // Importing the CSS file for styling
+import { useError } from '../contexts/ErrorContext';
 
 // Functional component for the dashboard
 const Dashboard = () => {
+  const { toggleErrorState } = useError();
   // State to store the list of tickets
   const [tickets, setTickets] = useState([]);
   
@@ -23,25 +25,31 @@ const Dashboard = () => {
   useEffect(() => {
     // Function to fetch tickets from the server
     const fetchTickets = async () => {
-      const result = await viewTickets(); // Fetch tickets using the network helper
-      if (result.success) {
-        setTickets(result.tickets); // Update state with the fetched tickets
-        
-        // Calculate statistics based on the fetched tickets
-        const unresolved = result.tickets.length;
-        const overdue = result.tickets.filter(ticket => ticket.status === 'overdue').length;
-        const dueToday = result.tickets.filter(ticket => ticket.status === 'dueToday').length;
-        const open = result.tickets.filter(ticket => ticket.status === 'open').length;
-        const onHold = result.tickets.filter(ticket => ticket.status === 'onHold').length;
-        const unassigned = result.tickets.filter(ticket => !ticket.assignee).length;
+      try {
+        const result = await viewTickets(); // Fetch tickets using the network helper
+        if (result.success) {
+          setTickets(result.tickets); // Update state with the fetched tickets
 
-        // Update state with the calculated statistics
-        setStats({ unresolved, overdue, dueToday, open, onHold, unassigned });
+          // Calculate statistics based on the fetched tickets
+          const unresolved = result.tickets.length;
+          const overdue = result.tickets.filter(ticket => ticket.status === 'overdue').length;
+          const dueToday = result.tickets.filter(ticket => ticket.status === 'dueToday').length;
+          const open = result.tickets.filter(ticket => ticket.status === 'open').length;
+          const onHold = result.tickets.filter(ticket => ticket.status === 'onHold').length;
+          const unassigned = result.tickets.filter(ticket => !ticket.assignee).length;
+
+          // Update state with the calculated statistics
+          setStats({ unresolved, overdue, dueToday, open, onHold, unassigned });
+        } else {
+          toggleErrorState('Failed to fetch tickets. Please try again later.');
+        }
+      } catch (error) {
+        toggleErrorState('An error occurred while fetching tickets.');
       }
     };
 
     fetchTickets(); // Call the fetchTickets function
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
+  }, [toggleErrorState]); // Add toggleErrorState to dependency array to avoid ESLint warning
 
   return (
     // Main container for the dashboard
