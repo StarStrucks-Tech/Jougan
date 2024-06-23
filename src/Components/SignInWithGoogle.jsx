@@ -8,12 +8,19 @@ import { IMAGES, TOAST_MESSAGES } from '../constants/constants';
 import { doc, setDoc } from 'firebase/firestore';
 import { ROUTES } from '../constants/route';
 import { DB_COLLECTIONS } from '../constants/dbconstants';
-
+import { useError } from '../contexts/ErrorContext';
+import InfoCollectorModal from '../Components/InfoCollectorModal/InfoCollectorModal';
+import { useState } from 'react';
 // Component for signing in with Google
 function SignInWithGoogle() {
   // Initialize navigate function from react-router-dom
   const navigate = useNavigate();
-
+  const [showInfoCollector, setShowInfoCollector] = useState(false);
+  const { toggleErrorState } = useError();
+  const handleModalSuccess = () => {
+    setShowInfoCollector(false);
+    navigate(ROUTES.DASHBOARD);
+  };
    // Function to handle Google sign-in
   async function googleLogin() {
      // Create a new instance of GoogleAuthProvider
@@ -29,9 +36,10 @@ function SignInWithGoogle() {
       toast.success(TOAST_MESSAGES.SIGNINWITHGOOGLE_SUCCESS, {
         position: "top-center",
       });
-      navigate(ROUTES.DASHBOARD);
+      setShowInfoCollector(true);
       console.log(result);
     } catch (error) {
+      toggleErrorState(error.message);
       toast.error(TOAST_MESSAGES.SIGNINWITHGOOGLE_FAILURE, {
         position: "bottom-center",
       });
@@ -40,10 +48,13 @@ function SignInWithGoogle() {
   }
 
   return (
+    <div>
     <button className="button-google" type="button" onClick={googleLogin}>
       <img src={IMAGES.GOOGLE} alt="Google logo" className="google-logo" />
       Sign in with Google
     </button>
+    {(showInfoCollector?<InfoCollectorModal isVisible={showInfoCollector} onSuccess={handleModalSuccess} /> : <></>)  }
+    </div>
   );
 }
 

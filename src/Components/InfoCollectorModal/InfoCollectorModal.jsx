@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import './InfoCollectorModal.css';
 import { useError } from '../../contexts/ErrorContext';
+
 /**
  * InfoCollectorModal component that collects additional information from the user in a modal.
  * @param {object} props - Component props
@@ -13,6 +15,7 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
   const [githubId, setGithubId] = useState('');
   const { toggleErrorState } = useError();
   const navigate = useNavigate();
+
   const validateGithubId = (id) => {
     const githubIdRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
     return githubIdRegex.test(id);
@@ -21,13 +24,13 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!githubId) {
-      toggleErrorState('GitHub ID is required');
+      toggleErrorState('GitHub ID is required',true);
     } else if (!validateGithubId(githubId)) {
-      toggleErrorState('Invalid GitHub ID format');
+      toggleErrorState('Invalid GitHub ID format',true);
     } else {
       console.log('GitHub ID:', githubId);
-      navigate('/home');
-      onSuccess(); //what should be done on successful submission
+      onSuccess();
+      navigate('/dashboard');
     }
   };
 
@@ -56,6 +59,11 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
       </div>
     </div>
   );
+};
+
+InfoCollectorModal.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };
 
 export default InfoCollectorModal;

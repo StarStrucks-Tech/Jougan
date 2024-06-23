@@ -8,7 +8,9 @@ import { doc, setDoc } from 'firebase/firestore'; // Importing Firestore functio
 import { toast } from 'react-toastify'; 
 import SignInWithGoogle from '../Components/SignInWithGoogle'; // Importing Google sign-in component
 import { ROUTES } from '../constants/route';
+import { useError } from '../contexts/ErrorContext';
 
+import InfoCollectorModal from '../Components/InfoCollectorModal/InfoCollectorModal';
 // Functional component for the sign-in page
 const SignInPage = () => {
   const navigate = useNavigate(); // Initialize navigate function from react-router-dom
@@ -16,6 +18,13 @@ const SignInPage = () => {
   const [username, setUsername] = useState(""); // State hook for managing username input value
   const [password, setPassword] = useState(""); // State hook for managing password input value
   const [error] = useState(null); // State hook for managing error message (currently unused)
+  const { toggleErrorState } = useError()
+  const [showInfoCollector, setShowInfoCollector] = useState(false);
+   // Function to handle modal close and navigate to the home page
+  const handleModalSuccess = () => {
+    setShowInfoCollector(false);
+    navigate(ROUTES.DASHBOARD);
+  };
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -34,12 +43,15 @@ const SignInPage = () => {
       toast.success(TOAST_MESSAGES.SIGNUP_SUCCESS, {
         position: "top-center",
       });
+      
+      setShowInfoCollector(true);
       // Navigate to the home page upon successful signup
-      navigate(ROUTES.DASHBOARD);
+
     } catch (error) {
       toast.error(TOAST_MESSAGES.SIGNUP_FAILURE, {
         position: "bottom-center",
       });
+     toggleErrorState(error.message);
     }
   };
 
@@ -115,6 +127,7 @@ const SignInPage = () => {
           <img src={IMAGES.WOMEN} height={320} width={180} alt="Illustration" className="image" />
         </div>
       </div>
+     { (showInfoCollector? <InfoCollectorModal isVisible={showInfoCollector} onSuccess={handleModalSuccess} /> : <></>)  }
     </div>
   );
 };
