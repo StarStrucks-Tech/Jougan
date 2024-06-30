@@ -23,6 +23,7 @@ const Dashboard = () => {
 
   // useEffect hook to fetch tickets when the component mounts
   useEffect(() => {
+    
     // Function to fetch tickets from the server
     const fetchTickets = async () => {
       try {
@@ -50,7 +51,29 @@ const Dashboard = () => {
 
     fetchTickets(); // Call the fetchTickets function
   }, [toggleErrorState]); // Add toggleErrorState to dependency array to avoid ESLint warning
-
+  const refreshTickets = async () => {
+    try {
+      const result = await viewTickets();
+      if (result.success) {
+        
+        setTickets(result.tickets);
+        
+        // Calculate statistics based on the fetched tickets
+        const unresolved = result.tickets.length;
+        const overdue = result.tickets.filter(ticket => ticket.status === 'overdue').length;
+        const dueToday = result.tickets.filter(ticket => ticket.status === 'dueToday').length;
+        const open = result.tickets.filter(ticket => ticket.status === 'open').length;
+        const onHold = result.tickets.filter(ticket => ticket.status === 'onHold').length;
+        const unassigned = result.tickets.filter(ticket => !ticket.assignee).length;
+        
+        setStats({ unresolved, overdue, dueToday, open, onHold, unassigned });
+      } else {
+        toggleErrorState('Failed to fetch tickets. Please try again later.');
+      }
+    } catch (error) {
+      toggleErrorState('An error occurred while fetching tickets.');
+    }
+  };
   return (
     // Main container for the dashboard
     <div className="dashboard">
@@ -58,6 +81,7 @@ const Dashboard = () => {
         {/* Displaying statistics */}
         <Stats stats={stats} />
         {/* Displaying the list of tickets */}
+        
         <TicketList tickets={tickets} />
       </div>
     </div>
