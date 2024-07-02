@@ -118,10 +118,20 @@ const fetchAllDocumentsInCollection = async (collectionName, toggleErrorState) =
   try {
     const collectionRef = collection(db, collectionName);
     const snapshot = await getDocs(collectionRef);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const documents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    return {
+      success: true,
+      documents: documents
+    };
   } catch (error) {
-    toggleErrorState(`Error fetching documents from collection ${collectionName}: ${error.message}`, true);
-    throw new Error(`Error fetching documents from collection ${collectionName}: ${error.message}`);
+    const errorMessage = `Error fetching documents from collection ${collectionName}: ${error.message}`;
+    toggleErrorState(errorMessage, true);
+    
+    return {
+      success: false,
+      error: errorMessage
+    };
   }
 };
 

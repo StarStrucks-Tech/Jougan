@@ -1,12 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TABLE_HEADERS } from '../constants/constants';
 import './TicketList.css';
 
-// Truncation function
+/**
+ * Truncates a string to a specified length and adds an ellipsis if truncated.
+ * 
+ * @param {string} str - The string to truncate
+ * @param {number} n - The maximum length of the string
+ * @returns {string} The truncated string
+ */
 const truncate = (str, n) => {
   return (str && str.length > n) ? str.substr(0, n-1) + '...' : str;
 };
 
+/**
+ * TicketList Component
+ * 
+ * This component displays a list of tickets in a table format.
+ * It uses the TABLE_HEADERS constant to generate table headers dynamically.
+ * 
+ * @param {Object} props - The component props
+ * @param {Array} props.tickets - An array of ticket objects to display
+ */
 const TicketList = ({ tickets }) => {
   return (
     <div className="ticket-list">
@@ -14,14 +30,9 @@ const TicketList = ({ tickets }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Subject</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Type</th>
-            <th>Priority</th>
-            <th>Developer</th>
-            <th>Product</th>
+            {TABLE_HEADERS.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -43,6 +54,9 @@ const TicketList = ({ tickets }) => {
   );
 };
 
+/**
+ * PropTypes for the TicketList component
+ */
 TicketList.propTypes = {
   tickets: PropTypes.arrayOf(
     PropTypes.shape({
