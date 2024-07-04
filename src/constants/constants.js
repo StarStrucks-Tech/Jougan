@@ -33,5 +33,26 @@ export const IMAGES = {
   LOGIN: LOGIN_IMAGE,
   GOOGLE: GOOGLE_IMAGE,
 };
+export const TABLE_HEADERS = [
+  'ID',
+  'Subject',
+  'Description',
+  'Status',
+  'Type',
+  'Priority',
+  'Developer',
+  'Product'
+];
+export const TICKET_STATUS = {
+  OVERDUE: 'overdue',
+  DUE_TODAY: 'dueToday',
+  OPEN: 'open',
+  ON_HOLD: 'onHold'
+};
+
+export const ERROR_MESSAGES = {
+  FETCH_FAILED: 'Failed to fetch tickets. Please try again later.',
+  GENERAL_ERROR: 'An error occurred while fetching tickets.'
+};
 
 export const ACTIVE_CLASS = 'active';
