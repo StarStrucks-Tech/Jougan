@@ -1,9 +1,9 @@
-.app {
+
+  .app {
     display: flex;
   }
-  
   .main-content {
-    margin-left: 60px; /* Same width as the sidebar */
+    margin-left: 30px; /* Same width as the sidebar */
     padding: 20px;
     width: calc(100% - 60px);
   }
