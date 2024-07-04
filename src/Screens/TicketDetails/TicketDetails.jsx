@@ -1,12 +1,27 @@
-import React, { useState, useRef } from 'react';
-import { createTicket } from '../../utils/networkHelper';
-import './TicketDetails.css';
+import React, { useState, useRef } from "react";
+import { createTicket } from "../../utils/networkHelper";
+import { TEXTS } from "../../constants/constants";
+import "./TicketDetails.css";
+import { useError } from '../../contexts/ErrorContext';
+import { useNavigate } from 'react-router-dom';
 
+/**
+ * TicketDetails Component
+ * 
+ * This component renders a form for creating a new ticket.
+ * It handles form submission, validation, and redirects to the dashboard on success.
+ */
 function TicketDetails() {
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  // State to manage loading status
   const [isLoading, setIsLoading] = useState(false);
 
+  // Custom hook for error handling
+  const { toggleErrorState } = useError();
+
+  // Hook for programmatic navigation
+  const navigate = useNavigate();
+
+  // References to form input elements
   const developerRef = useRef(null);
   const statusRef = useRef(null);
   const productRef = useRef(null);
@@ -15,16 +30,36 @@ function TicketDetails() {
   const subjectRef = useRef(null);
   const descriptionRef = useRef(null);
 
-  const toggleErrorState = (message, isError) => {
-    setErrorMessage(isError ? message : '');
-  };
-
+  /**
+   * Handles form submission
+   * @param {Event} event - The form submission event
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    setErrorMessage('');
-    setSuccessMessage('');
-    
+
+    // Define fields to be validated
+    const fields = [
+      { ref: developerRef, name: "Developer" },
+      { ref: statusRef, name: "Status" },
+      { ref: productRef, name: "Product" },
+      { ref: typeRef, name: "Type" },
+      { ref: priorityRef, name: "Priority" },
+      { ref: subjectRef, name: "Subject" },
+      { ref: descriptionRef, name: "Description" },
+    ];
+
+    // Check for empty fields
+    const emptyFields = fields.filter(field => !field.ref.current.value.trim());
+
+    if (emptyFields.length > 0) {
+      setIsLoading(false);
+      const emptyFieldNames = emptyFields.map(field => field.name).join(", ");
+      toggleErrorState(`Please fill in all fields. Missing: ${emptyFieldNames}`, true);
+      return;
+    }
+
+    // Collect form data
     const ticketData = {
       developer: developerRef.current.value,
       status: statusRef.current.value,
@@ -34,20 +69,19 @@ function TicketDetails() {
       subject: subjectRef.current.value,
       description: descriptionRef.current.value,
     };
-  
-    const result = await createTicket(ticketData, toggleErrorState);
-    
-    setIsLoading(false);
-    if (result.success) {
-      console.log("Ticket created successfully with ID:", result.id);
-      setSuccessMessage("Ticket created successfully");
-      // Clear the form
-      [developerRef, statusRef, productRef, typeRef, priorityRef, subjectRef, descriptionRef].forEach(ref => {
-        if (ref.current) ref.current.value = '';
-      });
-    } else {
-      console.log("Failed to create ticket");
-      // Note: Error message is already set by toggleErrorState in createTicket function
+
+    try {
+      // Attempt to create the ticket
+      const result = await createTicket(ticketData, toggleErrorState);
+
+      if (result.success) {
+        // Redirect to dashboard on success
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      toggleErrorState('An error occurred while submitting the form.', true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,71 +89,89 @@ function TicketDetails() {
     <>
       <nav className="nav-container">
         <div className="heading-container">
-          <span className="ticket">New Ticket</span>
+          <span className="ticket">{TEXTS.NAV_HEADING}</span>
         </div>
       </nav>
-      
+
       <form onSubmit={handleSubmit} className="ticketpage_container">
         <div className="left-section">
           <div className="form-group">
-            <label htmlFor="developer">Developer</label>
-            <div style={{ position: 'relative' }}>
-           <span className="material-icons icon">person</span>
-            <select id="developer" name="developer" ref={developerRef}>
-              <option value="dev1">Developer 1</option>
-              <option value="dev2">Developer 2</option>
-            </select>
-          </div>
+            <label htmlFor="Developer">{TEXTS.DEVELOPER_LABEL}</label>
+            <div style={{ position: "relative" }}>
+              <span className="material-icons icon">Person</span>
+              <select id="developer" name="developer" ref={developerRef}>
+                {TEXTS.DEVELOPERS.map((dev) => (
+                  <option key={dev.value} value={dev.value}>
+                    {dev.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="form-group">
-            <label htmlFor="status">Ticket Status</label>
+            <label htmlFor="status">{TEXTS.STATUS_LABEL}</label>
             <select id="status" name="status" ref={statusRef}>
-              <option value="done">Done</option>
-              <option value="in-progress">In Progress</option>
-              <option value="not-started">Not yet started</option>
-              <option value="merged">Merged and review</option>
+              {TEXTS.STATUSES.map((status) => (
+                <option key={status.value} value={status.value}>
+                  {status.label}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="product">Ticket Product</label>
+            <label htmlFor="product">{TEXTS.PRODUCT_LABEL}</label>
             <select id="product" name="product" ref={productRef}>
-              <option value="product1">Product 1</option>
-              <option value="product2">Product 2</option>
+              {TEXTS.PRODUCTS.map((product) => (
+                <option key={product.value} value={product.value}>
+                  {product.label}
+                </option>
+              ))}
             </select>
           </div>
           <div className="horizontal-group">
             <div className="form-group">
-              <label htmlFor="type">Type</label>
+              <label htmlFor="type">{TEXTS.TYPE_LABEL}</label>
               <select id="type" name="type" ref={typeRef}>
-                <option value="bug">Bug</option>
-                <option value="feature">Feature</option>
+                {TEXTS.TYPES.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="priority">Priority</label>
+              <label htmlFor="priority">{TEXTS.PRIORITY_LABEL}</label>
               <select id="priority" name="priority" ref={priorityRef}>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+                {TEXTS.PRIORITIES.map((priority) => (
+                  <option key={priority.value} value={priority.value}>
+                    {priority.label}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
         </div>
         <div className="right-section">
-          <div className="heading-tab">Subject</div>
+          <div className="heading-tab">{TEXTS.SUBJECT_HEADING}</div>
           <div className="box1">
-            <textarea ref={subjectRef} placeholder="Enter ticket subject" rows="4"></textarea>
+            <textarea
+              ref={subjectRef}
+              placeholder={TEXTS.SUBJECT_PLACEHOLDER}
+              rows="4"
+            />
           </div>
           <div className="box2">
-            <textarea ref={descriptionRef} placeholder="Enter ticket description" rows="4"></textarea>
+            <textarea
+              ref={descriptionRef}
+              placeholder={TEXTS.DESCRIPTION_PLACEHOLDER}
+              rows="4"
+            />
           </div>
         </div>
-        {isLoading && <div className="loading-message">Creating ticket...</div>}
-        {successMessage && <div className="success-message">{successMessage}</div>}
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {isLoading && <div className="loading-message">{TEXTS.LOADING_MESSAGE}</div>}
         <div className="footer">
           <button type="submit" className="button-submit" disabled={isLoading}>
-            {isLoading ? 'Submitting...' : 'Submit'}
+            {isLoading ? TEXTS.SUBMITTING_BUTTON : TEXTS.SUBMIT_BUTTON}
           </button>
         </div>
       </form>
@@ -128,81 +180,3 @@ function TicketDetails() {
 }
 
 export default TicketDetails;
-
-
-// import React from 'react';
-// import './TicketDetails.css';
-
-// function TicketDetails() {
-//   return (
-//     <>
-//       <nav className="nav-container">
-//         <div className="heading-container">
-//           <span className="ticket">New Ticket</span>
-//         </div>
-//       </nav>
-
-//       <div className="ticketpage_container">
-//         <div className="left-section">
-//           <div className="form-group">
-//             <label htmlFor="developer">Developer</label>
-//             <div style={{ position: 'relative' }}>
-//               <span className="material-icons icon">person</span>
-//               <select id="developer" name="developer" style={{ paddingLeft: '2rem' }}>
-//                 <option value="dev1">Developer 1</option>
-//                 <option value="dev2">Developer 2</option>
-//               </select>
-//             </div>
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="status">Ticket Status</label>
-//             <select id="status" name="status">
-//               <option value="done">Done</option>
-//               <option value="in-progress">In Progress</option>
-//               <option value="not-started">Not yet started</option>
-//               <option value="merged">Merged and review</option>
-//             </select>
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="product">Ticket Product</label>
-//             <select id="product" name="product">
-//               <option value="product1">Product 1</option>
-//               <option value="product2">Product 2</option>
-//             </select>
-//           </div>
-//           <div className="horizontal-group">
-//             <div className="form-group">
-//               <label htmlFor="type">Type</label>
-//               <select id="type" name="type">
-//                 <option value="bug">Bug</option>
-//                 <option value="feature">Feature</option>
-//               </select>
-//             </div>
-//             <div className="form-group">
-//               <label htmlFor="priority">Priority</label>
-//               <select id="priority" name="priority">
-//                 <option value="low">Low</option>
-//                 <option value="medium">Medium</option>
-//                 <option value="high">High</option>
-//               </select>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="right-section">
-//           <div className="heading-tab">Subject</div>
-//           <div className="box1">
-//             <textarea placeholder="User views in the first box" rows="4"></textarea>
-//           </div>
-//           <div className="box2">
-//             <textarea placeholder="User views in the second box" rows="4"></textarea>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="footer">
-//         <button className="button-submit">Submit</button>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default TicketDetails;
