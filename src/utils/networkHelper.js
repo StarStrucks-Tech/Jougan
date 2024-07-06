@@ -17,14 +17,14 @@ const createTicket = async (ticketData, toggleErrorState) => {
 };
 
 // Update the status of an existing ticket
-const updateStatus = async (ticketId, status, toggleErrorState) => {
+const updateStatus = async (ticketId, updateData, toggleErrorState) => {
   try {
     const ticketRef = doc(db, 'tickets', ticketId);
-    await updateDoc(ticketRef, { status });
+    await updateDoc(ticketRef, updateData);
     return { success: true };
   } catch (error) {
-    console.error("Error updating status: ", error);
-    toggleErrorState("Error updating status: " + error.message, true);
+    console.error("Error updating ticket: ", error);
+    toggleErrorState("Error updating ticket: " + error.message, true);
     return { success: false, error };
   }
 };
