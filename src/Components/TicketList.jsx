@@ -22,8 +22,9 @@ const truncate = (str, n) => {
  * 
  * @param {Object} props - The component props
  * @param {Array} props.tickets - An array of ticket objects to display
+ * @param {Function} props.onTicketClick - Function to handle ticket click events
  */
-const TicketList = ({ tickets }) => {
+const TicketList = ({ tickets, onTicketClick }) => {
   return (
     <div className="ticket-list">
       <h2>Tickets requiring your attention ({tickets.length})</h2>
@@ -37,7 +38,7 @@ const TicketList = ({ tickets }) => {
         </thead>
         <tbody>
           {tickets.map(ticket => (
-            <tr key={ticket.id}>
+            <tr key={ticket.id} onClick={() => onTicketClick(ticket)}>
               <td>{ticket.id}</td>
               <td>{truncate(ticket.subject, 30) || 'N/A'}</td>
               <td>{truncate(ticket.description, 50) || 'N/A'}</td>
@@ -70,6 +71,7 @@ TicketList.propTypes = {
       product: PropTypes.string,
     })
   ).isRequired,
+  onTicketClick: PropTypes.func.isRequired,
 };
 
 export default TicketList;
