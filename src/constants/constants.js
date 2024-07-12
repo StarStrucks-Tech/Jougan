@@ -33,6 +33,7 @@ export const IMAGES = {
   LOGIN: LOGIN_IMAGE,
   GOOGLE: GOOGLE_IMAGE,
 };
+
 export const TABLE_HEADERS = [
   'ID',
   'Subject',
@@ -43,6 +44,7 @@ export const TABLE_HEADERS = [
   'Developer',
   'Product'
 ];
+
 export const TICKET_STATUS = {
   OVERDUE: 'overdue',
   DUE_TODAY: 'dueToday',
@@ -54,6 +56,7 @@ export const ERROR_MESSAGES = {
   FETCH_FAILED: 'Failed to fetch tickets. Please try again later.',
   GENERAL_ERROR: 'An error occurred while fetching tickets.'
 };
+
 export const TEXTS = {
   NAV_HEADING: "New Ticket",
   DEVELOPER_LABEL: "Developer",
@@ -66,22 +69,33 @@ export const TEXTS = {
   DESCRIPTION_PLACEHOLDER: "Enter ticket description",
   LOADING_MESSAGE: "Creating ticket...",
   SUCCESS_MESSAGE: "Ticket created successfully",
+  UPDATE_MESSAGE : "Updated successfully",
   ERROR_MESSAGE: "An error occurred while creating the ticket",
   SUBMIT_BUTTON: "Submit",
+  SAVE_BUTTON: "Save",
+  CANCEL_BUTTON: "Cancel",
+  EDIT_BUTTON: "Edit",
   SUBMITTING_BUTTON: "Submitting...",
   DEVELOPERS: [
     { value: "dev1", label: "Developer 1" },
     { value: "dev2", label: "Developer 2" }
   ],
   STATUSES: [
-    { value: "done", label: "Done" },
-    { value: "in-progress", label: "In Progress" },
-    { value: "not-started", label: "Not yet started" },
-    { value: "merged", label: "Merged and review" }
+    { value: "RAISED", label: "RAISED" },
+    { value: "UNDER DEVELOPMENT", label :"UNDER DEVELOPMENT" },
+    { value: "DEV TESTING", label: "DEV TESTING" },
+    { value: "QA TESTING", label: "QA TESTING" },
+    { value: "IN REVIEW", label: "IN REVIEW" },
+    { value: "APPROVED", label: "APPROVED" },
+    { value: "MERGED", label: "MERGED" }
   ],
   PRODUCTS: [
-    { value: "product1", label: "Product 1" },
-    { value: "product2", label: "Product 2" }
+    { value: "Ticket Tracker", label: "Ticket Tracker" },
+    { value: "Kubair Home", label: "Kubair Home" },
+    { value: "Kubair Onboarding", label: "Kubair Onboarding" },
+    { value: "Kubair Payments", label:  "Kubair Payments" },
+    { value: "Tanjiro", label: "Tanjiro" },
+    { value: "Kubair Savings Account", label: "Kubair Savings Account" }
   ],
   TYPES: [
     { value: "bug", label: "Bug" },

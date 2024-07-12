@@ -24,6 +24,7 @@ const SignInPage = () => {
   const handleModalSuccess = () => {
     setShowInfoCollector(false);
     navigate(ROUTES.DASHBOARD);
+   
   };
 
   // Function to handle form submission
@@ -45,7 +46,7 @@ const SignInPage = () => {
       });
       
       setShowInfoCollector(true);
-      // Navigate to the home page upon successful signup
+      
 
     } catch (error) {
       toast.error(TOAST_MESSAGES.SIGNUP_FAILURE, {
