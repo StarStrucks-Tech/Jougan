@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { updateStatus } from '../../utils/networkHelper';
 import { useError } from '../../contexts/ErrorContext';
 import { toast } from 'react-toastify';
+import { TEXTS } from '../../constants/constants'; 
 import './TicketDetailModal.css';
 
 /**
@@ -15,8 +16,11 @@ import './TicketDetailModal.css';
  * @param {Function} props.onTicketUpdate - Function to call when ticket is updated
  */
 const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
+  // State to hold the edited ticket information
   const [editedTicket, setEditedTicket] = useState(ticket);
+  // State to determine if the modal is in editing mode
   const [isEditing, setIsEditing] = useState(false);
+  // Function to handle error state from context
   const { toggleErrorState } = useError();
 
   // Update editedTicket when ticket prop changes
@@ -24,6 +28,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
     setEditedTicket(ticket);
   }, [ticket]);
 
+  // If the modal is not open, return null (no rendering)
   if (!isOpen) return null;
 
   /**
@@ -43,7 +48,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
     if (result.success) {
       onTicketUpdate(editedTicket);
       setIsEditing(false);
-      toast.success('Updated successfully');
+      toast.success(TEXTS.UPDATE_MESSAGE); // Notify success
     }
   };
 
@@ -56,21 +61,21 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
             <input
               className="modal-input"
               name="subject"
-              placeholder="Enter subject"
+              placeholder={TEXTS.SUBJECT_PLACEHOLDER}
               value={editedTicket.subject}
               onChange={handleInputChange}
             />
             <textarea
               className="modal-input modal-textarea"
               name="description"
-              placeholder="Enter description"
+              placeholder={TEXTS.DESCRIPTION_PLACEHOLDER}
               value={editedTicket.description}
               onChange={handleInputChange}
             />
             <input
               className="modal-input"
               name="developer"
-              placeholder="Enter developer name"
+              placeholder={TEXTS.DEVELOPER_LABEL}
               value={editedTicket.developer}
               onChange={handleInputChange}
             />
@@ -80,23 +85,19 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
               value={editedTicket.product}
               onChange={handleInputChange}
             >
-              <option value="" disabled>Select product</option>
-              <option value="Ticket Tracker">Ticket Tracker</option>
-              <option value="Kubair Home">Kubair Home</option>
-              <option value="Kubair Onboarding">Kubair Onboarding</option>
-              <option value="Kubair Payments">Kubair Payments</option>
-              <option value="Tanjiro">Tanjiro</option>
-              <option value="Kubair Savings Account">Kubair Savings Account</option>
+              {TEXTS.PRODUCTS.map(product => (
+                <option key={product.value} value={product.value}>{product.label}</option>
+              ))}
             </select>
             <select
               className="modal-input"
               name="type"
-              placeholder="Enter type"
               value={editedTicket.type}
               onChange={handleInputChange}
             >
-              <option value="Bug">Bug</option>
-              <option value="Feature">Feature</option>
+              {TEXTS.TYPES.map(type => (
+                <option key={type.value} value={type.value}>{type.label}</option>
+              ))}
             </select>
             <select
               className="modal-input"
@@ -104,14 +105,9 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
               value={editedTicket.status}
               onChange={handleInputChange}
             >
-              <option value="" disabled>Select status</option>
-              <option value="RAISED">RAISED</option>
-              <option value="UNDER DEVELOPMENT">UNDER DEVELOPMENT</option>
-              <option value="DEV TESTING">DEV TESTING</option>
-              <option value="QA TESTING">QA TESTING</option>
-              <option value="IN REVIEW">IN REVIEW</option>
-              <option value="APPROVED">APPROVED</option>
-              <option value="MERGED">MERGED</option>
+              {TEXTS.STATUSES.map(status => (
+                <option key={status.value} value={status.value}>{status.label}</option>
+              ))}
             </select>
             <select
               className="modal-input"
@@ -119,24 +115,23 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
               value={editedTicket.priority}
               onChange={handleInputChange}
             >
-              <option value="" disabled>Select priority</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+              {TEXTS.PRIORITIES.map(priority => (
+                <option key={priority.value} value={priority.value}>{priority.label}</option>
+              ))}
             </select>
           </>
         ) : (
           <>
-            <h1 className="modal-title">{ ticket.subject } </h1>
-            <p><strong>Description:</strong> { ticket.description }</p>
-            <p><strong>Developer:</strong> { ticket.developer }</p>
-            <p><strong>Product:</strong> { ticket.product }</p>
-            <p><strong>Type:</strong> { ticket.type }</p>
-            <p><strong>Status:</strong> { ticket.status }</p>
+            <h1 className="modal-title">{ticket.subject}</h1>
+            <p><strong>{TEXTS.SUBJECT_HEADING}:</strong> {ticket.description}</p>
+            <p><strong>{TEXTS.DEVELOPER_LABEL}:</strong> {ticket.developer}</p>
+            <p><strong>{TEXTS.PRODUCT_LABEL}:</strong> {ticket.product}</p>
+            <p><strong>{TEXTS.TYPE_LABEL}:</strong> {ticket.type}</p>
+            <p><strong>{TEXTS.STATUS_LABEL}:</strong> {ticket.status}</p>
             <p>
-              <strong>Priority:</strong> 
-              <span className={`priority-${ ticket.priority.toLowerCase()}`}>
-                { ticket.priority }
+              <strong>{TEXTS.PRIORITY_LABEL}:</strong> 
+              <span className={`priority-${ticket.priority.toLowerCase()}`}>
+                {ticket.priority}
               </span>
             </p>
           </>
@@ -144,11 +139,11 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
         <div className="modal-buttons">
           {isEditing ? (
             <>
-              <button className="modal-button save-button" onClick={handleSave}>Save</button>
-              <button className="modal-button cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+              <button className="modal-button save-button" onClick={handleSave}>{TEXTS.SAVE_BUTTON}</button>
+              <button className="modal-button cancel-button" onClick={() => setIsEditing(false)}>{TEXTS.CANCEL_BUTTON}</button>
             </>
           ) : (
-            <button className="modal-button edit-button" onClick={() => setIsEditing(true)}>Edit</button>
+            <button className="modal-button edit-button" onClick={() => setIsEditing(true)}>{TEXTS.EDIT_BUTTON}</button>
           )}
         </div>
       </div>

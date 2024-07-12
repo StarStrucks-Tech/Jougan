@@ -1,107 +1,120 @@
+/* Overlay for the modal, covering the entire viewport */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  position: fixed; /* Fixes the overlay in place */
+  top: 0;          /* Aligns the overlay to the top */
+  left: 0;         /* Aligns the overlay to the left */
+  right: 0;        /* Aligns the overlay to the right */
+  bottom: 0;       /* Aligns the overlay to the bottom */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;   /* Uses flexbox for centering */
+  flex-wrap: wrap; /* Allows wrapping of child elements */
+  align-items: center; /* Vertically centers modal content */
+  justify-content: center; /* Horizontally centers modal content */
 }
 
+/* Main content area of the modal */
 .modal-content {
-  background-color: white;
-  padding: 25px;
-  border-radius: 12px;
-  width: 80%;
-  max-width: 700px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+  background-color: white; /* White background for modal */
+  padding: 25px; /* Padding around the content */
+  border-radius: 12px; /* Rounded corners */
+  width: 80%; /* Responsive width */
+  max-width: 700px; /* Maximum width of the modal */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: relative; /* Positions elements relative to this container */
 }
 
+/* Close button for the modal */
 .modal-close {
-  position: absolute;
-  top: 0px;
-  margin-top: 0px;
-  right: 0px;
-  background: none;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  color: #555;
+  position: absolute; /* Positions the button absolutely within the modal */
+  top: 0px; /* Aligns to the top */
+  right: 0px; /* Aligns to the right */
+  background: none; /* Removes default button background */
+  border: none; /* Removes default button border */
+  font-size: 15px; /* Font size for the close button */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  color: #555; /* Default color of the button */
 }
 
+/* Hover effect for close button */
 .modal-close:hover {
-  color: #000;
+  color: #000; /* Changes color on hover */
 }
 
+/* Input fields in the modal */
 .modal-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 100%; /* Full width */
+  padding: 8px; /* Padding inside the input */
+  margin-bottom: 10px; /* Space below the input */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
 }
 
+/* Textarea style */
 .modal-textarea {
-  height: 100px;
-  resize: vertical;
-  width: 100%;
+  height: 100px; /* Fixed height */
+  resize: vertical; /* Allows vertical resizing only */
+  width: 100%; /* Full width */
 }
 
+/* Title style for the modal */
 .modal-title {
-  font-weight: 500;
-  font-size: 30px;
-  text-align: center;
+  font-weight: 500; /* Medium font weight */
+  font-size: 30px; /* Large font size */
+  text-align: center; /* Center the title */
 }
 
+/* Container for buttons in the modal */
 .modal-buttons {
-  margin-top: 20px;
-  text-align: right;
+  margin-top: 20px; /* Space above buttons */
+  text-align: right; /* Align buttons to the right */
 }
 
+/* Common styles for modal buttons */
 .modal-button {
-  padding: 8px 14px;
-  margin: 0 4px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 8px 14px; /* Padding inside buttons */
+  margin: 0 4px; /* Horizontal spacing between buttons */
+  border: none; /* Removes default border */
+  border-radius: 4px; /* Slightly rounded corners */
+  cursor: pointer; /* Changes cursor to pointer */
 }
 
+/* Save button style */
 .save-button {
-  background-color: #4caf50;
-  color: white;
-  margin-right: 5px;
-  width: 80px;
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  margin-right: 5px; /* Right margin for spacing */
+  width: 80px; /* Fixed width */
 }
 
+/* Cancel button style */
 .cancel-button {
-  background-color: #f44336;
-  color: white;
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
 }
 
+/* Hover effect for cancel button */
 .cancel-button:hover {
-  background-color: #9d231b;
+  background-color: #9d231b; /* Darker red on hover */
 }
 
+/* Edit button style */
 .edit-button {
-  background-color: #2196f3;
-  color: white;
+  background-color: #2196f3; /* Blue background */
+  color: white; /* White text */
 }
 
+/* Priority styles */
 .priority-high {
-  color: red;
-  font-weight: bold;
+  color: red; /* Red for high priority */
+  font-weight: bold; /* Bold text */
 }
 
 .priority-medium {
-  color: orange;
-  font-weight: bold;
+  color: orange; /* Orange for medium priority */
+  font-weight: bold; /* Bold text */
 }
 
 .priority-low {
-  color: green;
-  font-weight: bold;
+  color: green; /* Green for low priority */
+  font-weight: bold; /* Bold text */
 }

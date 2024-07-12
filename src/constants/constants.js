@@ -33,6 +33,7 @@ export const IMAGES = {
   LOGIN: LOGIN_IMAGE,
   GOOGLE: GOOGLE_IMAGE,
 };
+
 export const TABLE_HEADERS = [
   'ID',
   'Subject',
@@ -43,6 +44,7 @@ export const TABLE_HEADERS = [
   'Developer',
   'Product'
 ];
+
 export const TICKET_STATUS = {
   OVERDUE: 'overdue',
   DUE_TODAY: 'dueToday',
@@ -54,6 +56,7 @@ export const ERROR_MESSAGES = {
   FETCH_FAILED: 'Failed to fetch tickets. Please try again later.',
   GENERAL_ERROR: 'An error occurred while fetching tickets.'
 };
+
 export const TEXTS = {
   NAV_HEADING: "New Ticket",
   DEVELOPER_LABEL: "Developer",
@@ -66,8 +69,12 @@ export const TEXTS = {
   DESCRIPTION_PLACEHOLDER: "Enter ticket description",
   LOADING_MESSAGE: "Creating ticket...",
   SUCCESS_MESSAGE: "Ticket created successfully",
+  UPDATE_MESSAGE : "Updated successfully",
   ERROR_MESSAGE: "An error occurred while creating the ticket",
   SUBMIT_BUTTON: "Submit",
+  SAVE_BUTTON: "Save",
+  CANCEL_BUTTON: "Cancel",
+  EDIT_BUTTON: "Edit",
   SUBMITTING_BUTTON: "Submitting...",
   DEVELOPERS: [
     { value: "dev1", label: "Developer 1" },
