@@ -1,9 +1,9 @@
 .nav-container {
-    background-color: #e4e5e6; 
+    background-color: #e4e5e6;
     padding: 0.5rem 1rem;
 }
 
-remove this part 
+/* remove this part  */
 .heading-container {
     display: flex;
     justify-content: flex-start;
@@ -13,17 +13,22 @@ remove this part
 .ticket {
     font-size: 1.25rem;
     font-weight: 500;
-} 
+    text-align: center;
+    justify-content: center;
+    margin-left: 50px;
+
+}
 
 .ticketpage_container {
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 100vh;
     border: 1px solid rgb(206, 201, 201);
-}  
+    margin-left: 40px;
+}
 
 .left-section {
-    width: 30%;
+    width: 40%;
     border: 1px solid rgb(206, 201, 201);
 }
 
@@ -68,6 +73,8 @@ remove this part
     margin-bottom: 0.4rem;
     border-style: solid rgba(28, 3, 3, 0.025);
     background-color: #f0f4f7;
+    margin-left: 5px;
+    font-weight: 400;
 }
 
 .right-section .box1 {
@@ -113,11 +120,9 @@ remove this part
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #f5f5f4;
      padding: 1rem;
     text-align: center;
-    border-top: 1px solid rgb(255, 255, 255);
-    
+
   }
 .button-submit {
     background-color: rgb(3, 56, 27);

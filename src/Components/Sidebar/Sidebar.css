@@ -6,6 +6,7 @@ html, body {
 .sidebar-container {
   display: flex;
   height: 100vh;
+  position: fixed;
 }
 .sidebar {
   background: linear-gradient(to bottom, #3E6747 0%, #0C1320 100%);
