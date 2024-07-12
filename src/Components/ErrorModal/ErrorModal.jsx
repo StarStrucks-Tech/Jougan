@@ -8,21 +8,21 @@ import './ErrorModal.css';
  * @returns {JSX.Element|null} The error modal element or null if no error
  */
 const ErrorModal = () => {
-  const { error, toggleErrorState } = useError();
+  const { error,showModal, toggleErrorState } = useError();
 
-  if (!error) return null;
+  if (!showModal) return null;
 
   return (
     <div className="error-modal-overlay">
       <div className="error-modal">
         <div className="error-modal-header">
-          <span className="error-modal-close" onClick={() => toggleErrorState(null)}>&times;</span>
+          <span className="error-modal-close" onClick={() => toggleErrorState(null,true)}>&times;</span>
         </div>
         <div className="error-modal-body">
           <div className="error-icon">×</div>
           <h2>Ooops!</h2>
           <p>Something went wrong. {error}</p>
-          <button className="error-button" onClick={() => toggleErrorState(null)}>Try Again</button>
+          <button className="error-button" onClick={() => toggleErrorState(null,true)}>Try Again</button>
         </div>
       </div>
     </div>

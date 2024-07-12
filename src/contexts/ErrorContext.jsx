@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import ErrorModal from '../Components/ErrorModal/ErrorModal';
 
@@ -17,7 +17,7 @@ export const useError = () => useContext(ErrorContext);
  */
 export const ErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
-  const [showModal,setshowModal]= useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   /**
    * Toggle the error state.
@@ -25,22 +25,23 @@ export const ErrorProvider = ({ children }) => {
    * If null is provided, clear the error message.
    * @param {string|null} message - The error message or null to clear the error
    */
-  const toggleErrorState = (message,useErrorModal=false) => {
+  const toggleErrorState = (message, useErrorModal = false) => {
+    console.log('toggleErrorState called with:', { message, useErrorModal });
     setError(message);
-    console.log(`show model ${showModal}`);
-    if(useErrorModal)
-  {  setshowModal(!showModal);
-    console.log(`show model ${showModal}`);
-
-  }
-  };
-  return (
-    <ErrorContext.Provider value={{ error, toggleErrorState }}>
-      {children}
-{    (showModal? <ErrorModal/>: <></>)
+    if (useErrorModal) {
+      setShowModal(!!message);
     }
-      
-    
+  };
+
+  // Use useEffect to log state changes
+  useEffect(() => {
+    console.log('Error state updated:', { error, showModal });
+  }, [error, showModal]);
+
+  return (
+    <ErrorContext.Provider value={{ error, showModal, toggleErrorState }}>
+      {children}
+      {showModal && <ErrorModal />}
     </ErrorContext.Provider>
   );
 };

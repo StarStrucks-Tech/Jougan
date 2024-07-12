@@ -1,5 +1,5 @@
 .nav-container {
-    background-color: #e4e5e6; 
+    background-color: #e4e5e6;
     padding: 0.5rem 1rem;
 }
 
@@ -16,8 +16,8 @@
     text-align: center;
     justify-content: center;
     margin-left: 50px;
-    
-} 
+
+}
 
 .ticketpage_container {
     display: flex;
@@ -25,7 +25,7 @@
     height: 100vh;
     border: 1px solid rgb(206, 201, 201);
     margin-left: 40px;
-}  
+}
 
 .left-section {
     width: 40%;
@@ -122,7 +122,7 @@
     width: 100%;
      padding: 1rem;
     text-align: center;
-    
+
   }
 .button-submit {
     background-color: rgb(3, 56, 27);
