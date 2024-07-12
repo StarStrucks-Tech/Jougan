@@ -38,6 +38,7 @@ function SignInWithGoogle() {
       });
       setShowInfoCollector(true);
       console.log(result);
+      
     } catch (error) {
       toggleErrorState(error.message);
       toast.error(TOAST_MESSAGES.SIGNINWITHGOOGLE_FAILURE, {

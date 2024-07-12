@@ -74,14 +74,21 @@ export const TEXTS = {
     { value: "dev2", label: "Developer 2" }
   ],
   STATUSES: [
-    { value: "done", label: "Done" },
-    { value: "in-progress", label: "In Progress" },
-    { value: "not-started", label: "Not yet started" },
-    { value: "merged", label: "Merged and review" }
+    { value: "RAISED", label: "RAISED" },
+    { value: "UNDER DEVELOPMENT", label :"UNDER DEVELOPMENT" },
+    { value: "DEV TESTING", label: "DEV TESTING" },
+    { value: "QA TESTING", label: "QA TESTING" },
+    { value: "IN REVIEW", label: "IN REVIEW" },
+    { value: "APPROVED", label: "APPROVED" },
+    { value: "MERGED", label: "MERGED" }
   ],
   PRODUCTS: [
-    { value: "product1", label: "Product 1" },
-    { value: "product2", label: "Product 2" }
+    { value: "Ticket Tracker", label: "Ticket Tracker" },
+    { value: "Kubair Home", label: "Kubair Home" },
+    { value: "Kubair Onboarding", label: "Kubair Onboarding" },
+    { value: "Kubair Payments", label:  "Kubair Payments" },
+    { value: "Tanjiro", label: "Tanjiro" },
+    { value: "Kubair Savings Account", label: "Kubair Savings Account" }
   ],
   TYPES: [
     { value: "bug", label: "Bug" },
