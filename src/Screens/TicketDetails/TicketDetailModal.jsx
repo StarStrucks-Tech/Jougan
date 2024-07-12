@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { updateStatus } from '../../utils/networkHelper';
 import { useError } from '../../contexts/ErrorContext';
+import { toast } from 'react-toastify';
+import { TEXTS } from '../../constants/constants'; 
 import './TicketDetailModal.css';
 
 /**
@@ -14,8 +16,11 @@ import './TicketDetailModal.css';
  * @param {Function} props.onTicketUpdate - Function to call when ticket is updated
  */
 const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
+  // State to hold the edited ticket information
   const [editedTicket, setEditedTicket] = useState(ticket);
+  // State to determine if the modal is in editing mode
   const [isEditing, setIsEditing] = useState(false);
+  // Function to handle error state from context
   const { toggleErrorState } = useError();
 
   // Update editedTicket when ticket prop changes
@@ -23,6 +28,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
     setEditedTicket(ticket);
   }, [ticket]);
 
+  // If the modal is not open, return null (no rendering)
   if (!isOpen) return null;
 
   /**
@@ -42,6 +48,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
     if (result.success) {
       onTicketUpdate(editedTicket);
       setIsEditing(false);
+      toast.success(TEXTS.UPDATE_MESSAGE); // Notify success
     }
   };
 
@@ -54,25 +61,53 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
             <input
               className="modal-input"
               name="subject"
+              placeholder={TEXTS.SUBJECT_PLACEHOLDER}
               value={editedTicket.subject}
               onChange={handleInputChange}
             />
             <textarea
               className="modal-input modal-textarea"
               name="description"
+              placeholder={TEXTS.DESCRIPTION_PLACEHOLDER}
               value={editedTicket.description}
               onChange={handleInputChange}
             />
+            <input
+              className="modal-input"
+              name="developer"
+              placeholder={TEXTS.DEVELOPER_LABEL}
+              value={editedTicket.developer}
+              onChange={handleInputChange}
+            />
+            <select
+              className="modal-input"
+              name="product"
+              value={editedTicket.product}
+              onChange={handleInputChange}
+            >
+              {TEXTS.PRODUCTS.map(product => (
+                <option key={product.value} value={product.value}>{product.label}</option>
+              ))}
+            </select>
+            <select
+              className="modal-input"
+              name="type"
+              value={editedTicket.type}
+              onChange={handleInputChange}
+            >
+              {TEXTS.TYPES.map(type => (
+                <option key={type.value} value={type.value}>{type.label}</option>
+              ))}
+            </select>
             <select
               className="modal-input"
               name="status"
               value={editedTicket.status}
               onChange={handleInputChange}
             >
-              <option value="Open">Open</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Not yet started">Not yet started</option>
-              <option value="Merged and closed">Merged and closed</option>
+              {TEXTS.STATUSES.map(status => (
+                <option key={status.value} value={status.value}>{status.label}</option>
+              ))}
             </select>
             <select
               className="modal-input"
@@ -80,18 +115,21 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
               value={editedTicket.priority}
               onChange={handleInputChange}
             >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+              {TEXTS.PRIORITIES.map(priority => (
+                <option key={priority.value} value={priority.value}>{priority.label}</option>
+              ))}
             </select>
           </>
         ) : (
           <>
-            <h2 className="modal-title">{ticket.subject}</h2>
-            <p><strong>Description:</strong> {ticket.description}</p>
-            <p><strong>Status:</strong> {ticket.status}</p>
+            <h1 className="modal-title">{ticket.subject}</h1>
+            <p><strong>{TEXTS.SUBJECT_HEADING}:</strong> {ticket.description}</p>
+            <p><strong>{TEXTS.DEVELOPER_LABEL}:</strong> {ticket.developer}</p>
+            <p><strong>{TEXTS.PRODUCT_LABEL}:</strong> {ticket.product}</p>
+            <p><strong>{TEXTS.TYPE_LABEL}:</strong> {ticket.type}</p>
+            <p><strong>{TEXTS.STATUS_LABEL}:</strong> {ticket.status}</p>
             <p>
-              <strong>Priority:</strong> 
+              <strong>{TEXTS.PRIORITY_LABEL}:</strong> 
               <span className={`priority-${ticket.priority.toLowerCase()}`}>
                 {ticket.priority}
               </span>
@@ -101,11 +139,11 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
         <div className="modal-buttons">
           {isEditing ? (
             <>
-              <button className="modal-button save-button" onClick={handleSave}>Save</button>
-              <button className="modal-button cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+              <button className="modal-button save-button" onClick={handleSave}>{TEXTS.SAVE_BUTTON}</button>
+              <button className="modal-button cancel-button" onClick={() => setIsEditing(false)}>{TEXTS.CANCEL_BUTTON}</button>
             </>
           ) : (
-            <button className="modal-button edit-button" onClick={() => setIsEditing(true)}>Edit</button>
+            <button className="modal-button edit-button" onClick={() => setIsEditing(true)}>{TEXTS.EDIT_BUTTON}</button>
           )}
         </div>
       </div>
@@ -120,6 +158,9 @@ TicketDetailModal.propTypes = {
     id: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    developer: PropTypes.string.isRequired,
+    product: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
   }).isRequired,
