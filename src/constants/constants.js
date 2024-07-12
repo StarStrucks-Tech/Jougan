@@ -34,7 +34,7 @@ export const IMAGES = {
   GOOGLE: GOOGLE_IMAGE,
 };
 export const TABLE_HEADERS = [
-  'ID',
+  'Created Date',
   'Subject',
   'Description',
   'Status',

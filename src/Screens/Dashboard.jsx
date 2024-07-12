@@ -19,6 +19,8 @@ const Dashboard = () => {
 
   // State to store the list of tickets
   const [tickets, setTickets] = useState([]);
+  //New state for loading animation
+  const [isLoading, setIsLoading] = useState(true);
 
   // State to store various ticket statistics
   const [stats, setStats] = useState({
@@ -53,6 +55,7 @@ const Dashboard = () => {
    * Fetches tickets from the server and updates the component state
    */
   const fetchTickets = useCallback(async () => {
+    setIsLoading(true);
     try {
       const result = await viewTickets();
       if (result.success) {
@@ -63,6 +66,8 @@ const Dashboard = () => {
       }
     } catch (error) {
       toggleErrorState(ERROR_MESSAGES.GENERAL_ERROR);
+    }finally {
+      setIsLoading(false); // Set loading to false when fetching ends
     }
   }, [toggleErrorState]);
 
@@ -105,19 +110,26 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="main-content">
-        <Stats stats={stats} />
-        <TicketList tickets={tickets} onTicketClick={handleTicketClick} />
-        {selectedTicket && (
-          <TicketModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            ticket={selectedTicket}
-            onTicketUpdate={handleTicketUpdate}
-          />
+        {isLoading ? (
+          <div className="loading-spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        ) : (
+          <>
+            <Stats stats={stats} />
+            <TicketList tickets={tickets} onTicketClick={handleTicketClick} />
+            {selectedTicket && (
+              <TicketModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                ticket={selectedTicket}
+                onTicketUpdate={handleTicketUpdate}
+              />
+            )}
+          </>
         )}
       </div>
     </div>
   );
 };
-
 export default Dashboard;
