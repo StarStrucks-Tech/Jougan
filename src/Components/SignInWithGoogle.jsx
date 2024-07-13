@@ -38,7 +38,9 @@ function SignInWithGoogle() {
       });
       setShowInfoCollector(true);
       console.log(result);
-      
+
+      navigate(ROUTES.DASHBOARD);
+
     } catch (error) {
       toggleErrorState(error.message);
       toast.error(TOAST_MESSAGES.SIGNINWITHGOOGLE_FAILURE, {

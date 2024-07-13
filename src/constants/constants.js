@@ -35,7 +35,7 @@ export const IMAGES = {
 };
 
 export const TABLE_HEADERS = [
-  'ID',
+  'Created Date',
   'Subject',
   'Description',
   'Status',

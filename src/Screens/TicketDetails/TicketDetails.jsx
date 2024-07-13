@@ -4,6 +4,7 @@ import { TEXTS } from "../../constants/constants";
 import "./TicketDetails.css";
 import { useError } from '../../contexts/ErrorContext';
 import { useNavigate } from 'react-router-dom';
+import { serverTimestamp } from 'firebase/firestore';
 
 /**
  * TicketDetails Component
@@ -68,7 +69,9 @@ function TicketDetails() {
       priority: priorityRef.current.value,
       subject: subjectRef.current.value,
       description: descriptionRef.current.value,
+      createdAt: serverTimestamp(),
     };
+    
 
     try {
       // Attempt to create the ticket
@@ -168,7 +171,11 @@ function TicketDetails() {
             />
           </div>
         </div>
-        {isLoading && <div className="loading-message">{TEXTS.LOADING_MESSAGE}</div>}
+        {isLoading && (
+          <div className="loading-spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        )}
         <div className="footer">
           <button type="submit" className="button-submit" disabled={isLoading}>
             {isLoading ? TEXTS.SUBMITTING_BUTTON : TEXTS.SUBMIT_BUTTON}

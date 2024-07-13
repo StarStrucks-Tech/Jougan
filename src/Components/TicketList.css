@@ -1,7 +1,8 @@
 .ticket-list {
     flex: 1;
-    padding: 20px;
+    padding: 0px;
     background-color: #ecf0f1;
+    margin-left: 10px;
   }
   
   .ticket-list table {
@@ -17,6 +18,6 @@
   
   .ticket-list th {
     background-color: #34495e;
-    color: white;
+    color: rgb(255, 255, 255);
   }
   

@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp, query, where, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, doc, updateDoc, getDoc,orderBy } from 'firebase/firestore';
 import { db } from "../config/firebase.config";
 // Create a new ticket in the Firestore database
 const createTicket = async (ticketData, toggleErrorState) => {
@@ -44,6 +44,7 @@ const viewTickets = async (filters = {}, toggleErrorState) => {
     if (filters.status) {
       q = query(q, where('status', '==', filters.status));
     }
+    q = query(q, orderBy('createdAt', 'desc'));
 
     const snapshot = await getDocs(q);
     const tickets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -117,6 +118,7 @@ const fetchDocument = async (collectionName, docId, toggleErrorState) => {
 const fetchAllDocumentsInCollection = async (collectionName, toggleErrorState) => {
   try {
     const collectionRef = collection(db, collectionName);
+    const q = query(collectionRef, orderBy('createdAt', 'desc'));
     const snapshot = await getDocs(collectionRef);
     const documents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
