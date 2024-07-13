@@ -1,7 +1,9 @@
 /* Container for the entire page */
 .container {
     display: flex;
-    height: 94vh;
+    height: 100vh;
+    /* margin-left: 0; */
+    /* padding: 1px; */
   }
   
   /* Image section styles */

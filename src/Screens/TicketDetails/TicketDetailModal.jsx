@@ -4,6 +4,9 @@ import { updateStatus } from '../../utils/networkHelper';
 import { useError } from '../../contexts/ErrorContext';
 import { toast } from 'react-toastify';
 import { TEXTS } from '../../constants/constants'; 
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from "../../config/firebase.config"; 
+import { DB_COLLECTIONS } from "../../constants/dbconstants"; 
 import './TicketDetailModal.css';
 
 /**
@@ -20,6 +23,8 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
   const [editedTicket, setEditedTicket] = useState(ticket);
   // State to determine if the modal is in editing mode
   const [isEditing, setIsEditing] = useState(false);
+  // State to hold developers
+  const [developers, setDevelopers] = useState([]);
   // Function to handle error state from context
   const { toggleErrorState } = useError();
 
@@ -27,6 +32,27 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
   useEffect(() => {
     setEditedTicket(ticket);
   }, [ticket]);
+
+  // // Fetch developers when the modal opens
+  useEffect(() => {
+    const fetchDevelopers = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, DB_COLLECTIONS.USERS));
+        const developerList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          value: doc.username,
+          label: doc.data().username || doc.data().displayName,
+        }));
+        setDevelopers(developerList);
+      } catch (error) {
+        toggleErrorState('Failed to fetch developer names from Firebase.', true);
+      }
+    };
+
+    if (isOpen) {
+      fetchDevelopers();
+    }
+  }, [isOpen, toggleErrorState]);
 
   // If the modal is not open, return null (no rendering)
   if (!isOpen) return null;
@@ -72,13 +98,16 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
               value={editedTicket.description}
               onChange={handleInputChange}
             />
-            <input
+            <select
               className="modal-input"
               name="developer"
-              placeholder={TEXTS.DEVELOPER_LABEL}
               value={editedTicket.developer}
               onChange={handleInputChange}
-            />
+            >
+              {developers.map(dev => (
+                <option key={dev.value} value={dev.value}>{dev.label}</option>
+              ))}
+            </select>
             <select
               className="modal-input"
               name="product"
