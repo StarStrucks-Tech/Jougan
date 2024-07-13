@@ -1,28 +1,23 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createTicket } from "../../utils/networkHelper";
 import { TEXTS } from "../../constants/constants";
 import "./TicketDetails.css";
 import { useError } from '../../contexts/ErrorContext';
 import { useNavigate } from 'react-router-dom';
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, collection, getDocs } from 'firebase/firestore';
+import { db } from "../../config/firebase.config"; 
+import { DB_COLLECTIONS } from "../../constants/dbconstants"; 
 
 /**
- * TicketDetails Component
- * 
- * This component renders a form for creating a new ticket.
- * It handles form submission, validation, and redirects to the dashboard on success.
+ * TicketDetails component to handle the creation of new tickets.
  */
 function TicketDetails() {
-  // State to manage loading status
   const [isLoading, setIsLoading] = useState(false);
-
-  // Custom hook for error handling
+  const [developers, setDevelopers] = useState([]);
   const { toggleErrorState } = useError();
-
-  // Hook for programmatic navigation
   const navigate = useNavigate();
 
-  // References to form input elements
+  // Refs for form fields
   const developerRef = useRef(null);
   const statusRef = useRef(null);
   const productRef = useRef(null);
@@ -32,14 +27,34 @@ function TicketDetails() {
   const descriptionRef = useRef(null);
 
   /**
-   * Handles form submission
-   * @param {Event} event - The form submission event
+   * Fetch developer names from Firebase and set the state.
+   */
+  useEffect(() => {
+    const fetchDevelopers = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, DB_COLLECTIONS.USERS));
+        const developerList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          value: doc.username,
+          label: doc.data().username || doc.data().displayName,
+        }));
+        setDevelopers(developerList);
+      } catch (error) {
+        toggleErrorState('Failed to fetch developer names from Firebase.', true);
+      }
+    };
+
+    fetchDevelopers();
+  }, [toggleErrorState]);
+
+  /**
+   * Handle form submission.
+   * @param {Event} event - The form submission event.
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
-    // Define fields to be validated
     const fields = [
       { ref: developerRef, name: "Developer" },
       { ref: statusRef, name: "Status" },
@@ -50,7 +65,6 @@ function TicketDetails() {
       { ref: descriptionRef, name: "Description" },
     ];
 
-    // Check for empty fields
     const emptyFields = fields.filter(field => !field.ref.current.value.trim());
 
     if (emptyFields.length > 0) {
@@ -60,7 +74,6 @@ function TicketDetails() {
       return;
     }
 
-    // Collect form data
     const ticketData = {
       developer: developerRef.current.value,
       status: statusRef.current.value,
@@ -71,14 +84,11 @@ function TicketDetails() {
       description: descriptionRef.current.value,
       createdAt: serverTimestamp(),
     };
-    
 
     try {
-      // Attempt to create the ticket
       const result = await createTicket(ticketData, toggleErrorState);
 
       if (result.success) {
-        // Redirect to dashboard on success
         navigate('/dashboard');
       }
     } catch (error) {
@@ -99,11 +109,11 @@ function TicketDetails() {
       <form onSubmit={handleSubmit} className="ticketpage_container">
         <div className="left-section">
           <div className="form-group">
-            <label htmlFor="Developer">{TEXTS.DEVELOPER_LABEL}</label>
+            <label htmlFor="developer">{TEXTS.DEVELOPER_LABEL}</label>
             <div style={{ position: "relative" }}>
               <span className="material-icons icon"></span>
               <select id="developer" name="developer" ref={developerRef}>
-                {TEXTS.DEVELOPERS.map((dev) => (
+                {developers.map((dev) => (
                   <option key={dev.value} value={dev.value}>
                     {dev.label}
                   </option>
