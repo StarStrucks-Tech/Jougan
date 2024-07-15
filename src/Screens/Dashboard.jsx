@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback} from 'react';
 import TicketList from '../Components/TicketList';
 import Stats from '../Components/Stats';
 import TicketModal from '../Screens/TicketDetails/TicketDetailModal';
@@ -6,6 +6,12 @@ import { viewTickets } from '../utils/networkHelper';
 import './Dashboard.css';
 import { useError } from '../contexts/ErrorContext';
 import { TICKET_STATUS, ERROR_MESSAGES } from '../constants/constants';
+import InfoCollectorModal from '../Components/InfoCollectorModal/InfoCollectorModal.jsx';
+import { doc, getDoc, updateDoc,setDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebase.config';
+import { DB_COLLECTIONS } from '../constants/dbconstants';
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 /**
  * Dashboard Component
@@ -33,6 +39,8 @@ const Dashboard = () => {
   });
   const [selectedTicket, setSelectedTicket] = useState(null); // New state for selected ticket
   const [isModalOpen, setIsModalOpen] = useState(false); // New state for modal visibility
+  const [showInfoCollector, setShowInfoCollector] = useState(false);
+  const [userChecked, setUserChecked] = useState(false);
 
   /**
    * Calculates statistics based on the provided tickets
@@ -51,6 +59,8 @@ const Dashboard = () => {
     return { unresolved, overdue, dueToday, open, onHold, unassigned };
   };
 
+  
+
   /**
    * Fetches tickets from the server and updates the component state
    */
@@ -66,16 +76,49 @@ const Dashboard = () => {
       }
     } catch (error) {
       toggleErrorState(ERROR_MESSAGES.GENERAL_ERROR);
-    }finally {
+    } finally {
       setIsLoading(false); // Set loading to false when fetching ends
     }
   }, [toggleErrorState]);
 
-  // Effect hook to fetch tickets when the component mounts
-  useEffect(() => {
-    fetchTickets();
+   /**
+   * Checks user information and determines if additional info needs to be collected
+   * @param {Object} user - The authenticated user object
+   */
+   const checkUserInfo = useCallback(async (user) => {
+    if (user) {
+      const userDocRef = doc(db, DB_COLLECTIONS.USERS, user.uid);
+      const userDoc = await getDoc(userDocRef, { source: 'server' });
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (!userData.hasProvidedInfo) {
+          setShowInfoCollector(true);
+        } else {
+          await fetchTickets();
+        }
+      } else {
+        await setDoc(userDocRef, {
+          email: user.email,
+          username: user.displayName,
+          hasProvidedInfo: false
+        });
+        setShowInfoCollector(true);
+      }
+    }
+    setUserChecked(true);
   }, [fetchTickets]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await checkUserInfo(user);
+      } else {
+        setUserChecked(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [checkUserInfo]);
   /**
    * Refreshes the ticket list and statistics
    */
@@ -107,10 +150,40 @@ const Dashboard = () => {
     setSelectedTicket(updatedTicket);
   };
 
+ /**
+   * Handles the successful submission of additional user information
+   * @param {Object} collectedInfo - The information collected from the user
+   */
+ const handleModalSuccess = async (collectedInfo) => {
+  const user = auth.currentUser;
+  if (user) {
+    const userDocRef = doc(db, DB_COLLECTIONS.USERS, user.uid);
+    try {
+      await setDoc(userDocRef, {
+        hasProvidedInfo: true,
+        githubId: collectedInfo.githubId,
+      }, { merge: true });
+    } catch (error) {
+      console.error("Error updating user document:", error);
+    }
+  }
+  setShowInfoCollector(false);
+  fetchTickets();
+};
+  if (!userChecked) {
+    return <div className="loading-spinner-container"><div className="loading-spinner"></div></div>;
+  }
+  
+
   return (
     <div className="dashboard">
       <div className="main-content">
-        {isLoading ? (
+        {showInfoCollector ? (
+          <InfoCollectorModal
+            isVisible={showInfoCollector}
+            onSuccess={handleModalSuccess}
+          />
+        ) : isLoading ? (
           <div className="loading-spinner-container">
             <div className="loading-spinner"></div>
           </div>
@@ -132,4 +205,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 export default Dashboard;
+

@@ -24,12 +24,14 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!githubId) {
-      toggleErrorState('GitHub ID is required',true);
+      toggleErrorState('GitHub ID is required', true);
     } else if (!validateGithubId(githubId)) {
-      toggleErrorState('Invalid GitHub ID format',true);
+      toggleErrorState('Invalid GitHub ID format', true);
     } else {
       console.log('GitHub ID:', githubId);
-      onSuccess();
+      // Pass the collected information back to the parent component
+      onSuccess({ githubId });
+      // Navigate to dashboard after successful submission
       navigate('/dashboard');
     }
   };
