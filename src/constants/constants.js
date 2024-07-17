@@ -65,6 +65,7 @@ export const TEXTS = {
   TYPE_LABEL: "Type",
   PRIORITY_LABEL: "Priority",
   SUBJECT_HEADING: "Subject",
+  DESCRIPTION_LABEL: "Description",
   SUBJECT_PLACEHOLDER: "Enter ticket subject",
   DESCRIPTION_PLACEHOLDER: "Enter ticket description",
   LOADING_MESSAGE: "Creating ticket...",

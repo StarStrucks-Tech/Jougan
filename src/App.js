@@ -16,19 +16,24 @@ import SimpleLayout from './Components/SimpleLayout';
 function App() {
   const [user, setUser] = useState(null);
   console.log(user);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setUser(user);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <ErrorProvider>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <MainLayout>

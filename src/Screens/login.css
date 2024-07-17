@@ -15,6 +15,7 @@
     align-items: center;
     justify-content: center;
     color: white;
+    margin-left: -35px;
     text-align: center;
   }
   
@@ -108,13 +109,14 @@
   }
   
   .checkbox {
-    margin-right: 0.5rem;
+    margin-right: 0.4rem;
   }
   
   .forgot-password {
     color: #08233a;
     font-weight: bold;
-    font-size: 0.875rem;
+    font-size: 0.871rem;
+   
     transition: color 0.2s ease-in-out;
   }
   
@@ -129,7 +131,7 @@
     font-weight: bold;
     padding: 0.75rem 1rem;
     border-radius: 0.25rem;
-    width: 100%;
+    width: 95%;
     transition: background-color 0.2s ease-in-out;
     border: none;
     cursor: pointer;

@@ -151,6 +151,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: -40px;
+    height: 42.1rem;
     background: linear-gradient(to bottom, #3D6546, #0E1722);
   }
   
