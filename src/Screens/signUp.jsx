@@ -92,13 +92,6 @@ const SignInPage = () => {
               minLength="6"
             />
           </div>
-          <div className="checkbox-group">
-            <label className="checkbox-label">
-              <input className="checkbox" type="checkbox" />
-              <span>Remember for 30 days</span>
-            </label>
-            <a className="link" href="forgot-pass">Forgot password?</a>
-          </div>
           <div className="form-group">
             <button className="button" type="submit">Create Account</button>
           </div>
