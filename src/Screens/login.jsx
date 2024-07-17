@@ -63,13 +63,6 @@ const LoginPage = () => {
             <label className="label" htmlFor="password">Password</label>
             <input className="input" onChange={(e) => setPassword(e.target.value)} id="password" type="password" placeholder="Enter your password" />
           </div>
-          <div className="checkbox-group">
-            <label className="checkbox-label">
-              <input className="checkbox" type="checkbox" />
-              <span>Remember for 30 days</span>
-            </label>
-            <a className="forgot-password" href="forgot-pass">Forgot password?</a>
-          </div>
           <div className="form-group">
             <button className="button" type="submit">Sign in</button>
           </div>
