@@ -29,30 +29,32 @@ const Sidebar = () => {
   return (
     <div className="sidebar-container">
       <div className="sidebar">
-        <Link to="/dashboard">
+        <Link to="/dashboard" className="tooltip">
           <img
             src={ICONS.HOME}
             alt="Home"
             className={activeIcon === ACTIVE_ICONS.HOME ? ACTIVE_CLASS : ''}
             onClick={() => setActiveIcon(ACTIVE_ICONS.HOME)}
-
           />
+          <span className="tooltiptext">Home</span>
         </Link>
-        <Link to="/ticket">
+        <Link to="/ticket" className="tooltip">
           <img
             src={ICONS.TICKET}
             alt="Ticket"
             className={activeIcon === ACTIVE_ICONS.TICKET ? ACTIVE_CLASS : ''}
             onClick={() => setActiveIcon(ACTIVE_ICONS.TICKET)}
           />
+          <span className="tooltiptext">Ticket</span>
         </Link>
-        <Link to="/home">
+        <Link to="/home" className="tooltip">
           <img
             src={ICONS.LOGOUT}
-            alt="User"
+            alt="Logout"
             className={activeIcon === ACTIVE_ICONS.USER ? ACTIVE_CLASS : ''}
             onClick={handleLogout}
           />
+          <span className="tooltiptext">Logout</span>
         </Link>
       </div>
     </div>

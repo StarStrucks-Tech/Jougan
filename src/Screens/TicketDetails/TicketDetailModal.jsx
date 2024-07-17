@@ -75,6 +75,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
       onTicketUpdate(editedTicket);
       setIsEditing(false);
       toast.success(TEXTS.UPDATE_MESSAGE); // Notify success
+      onClose(); // close the modal
     }
   };
 
@@ -152,7 +153,7 @@ const TicketDetailModal = ({ isOpen, onClose, ticket, onTicketUpdate }) => {
         ) : (
           <>
             <h1 className="modal-title">{ticket.subject}</h1>
-            <p><strong>{TEXTS.SUBJECT_HEADING}:</strong> {ticket.description}</p>
+            <p><strong>{TEXTS.DESCRIPTION_LABEL}:</strong> {ticket.description}</p>
             <p><strong>{TEXTS.DEVELOPER_LABEL}:</strong> {ticket.developer}</p>
             <p><strong>{TEXTS.PRODUCT_LABEL}:</strong> {ticket.product}</p>
             <p><strong>{TEXTS.TYPE_LABEL}:</strong> {ticket.type}</p>

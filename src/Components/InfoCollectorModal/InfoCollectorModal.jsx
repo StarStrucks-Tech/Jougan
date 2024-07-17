@@ -55,7 +55,7 @@ const InfoCollectorModal = ({ isVisible, onSuccess }) => {
                 required
               />
             </div>
-            <button type="submit">Submit</button>
+            <button className='github-btn' type="submit">Submit</button>
           </form>
         </div>
       </div>

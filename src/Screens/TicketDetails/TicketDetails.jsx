@@ -111,7 +111,7 @@ function TicketDetails() {
           <div className="form-group">
             <label htmlFor="developer">{TEXTS.DEVELOPER_LABEL}</label>
             <div style={{ position: "relative" }}>
-              <span className="material-icons icon"></span>
+              {/* <span className="material-icons icon"></span> */}
               <select id="developer" name="developer" ref={developerRef}>
                 {developers.map((dev) => (
                   <option key={dev.value} value={dev.value}>

@@ -26,18 +26,25 @@
 /* Close button for the modal */
 .modal-close {
   position: absolute; /* Positions the button absolutely within the modal */
-  top: 0px; /* Aligns to the top */
-  right: 0px; /* Aligns to the right */
-  background: none; /* Removes default button background */
+  top: 3px; /* Aligns to the top */
+  right: 4px; /* Aligns to the right */
   border: none; /* Removes default button border */
-  font-size: 15px; /* Font size for the close button */
+  font-size: 18px; /* Font size for the close button */
   cursor: pointer; /* Changes cursor to pointer on hover */
-  color: #555; /* Default color of the button */
+  color: #8c8989; /* Default color of the button */
+  width: 20px; /* Width of the close button */
+  height: 20px; /* Height of the close button */
+  border-radius: 50%; /* Makes the button round */
+  display: flex; /* Uses flexbox for centering */
+  align-items: center; /* Vertically centers content */
+  justify-content: center; /* Horizontally centers content */
+  transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease; /* Smooth transition for scaling, color, and background */
 }
-
 /* Hover effect for close button */
 .modal-close:hover {
-  color: #000; /* Changes color on hover */
+  color: #fff; /* Changes color on hover */
+  background: #b9b6b6;
+  transform: scale(1.2); /* Increases size on hover */
 }
 
 /* Input fields in the modal */
@@ -80,10 +87,13 @@
 
 /* Save button style */
 .save-button {
-  background-color: #4caf50; /* Green background */
+  background-color: #33b93c; /* Green background */
   color: white; /* White text */
   margin-right: 5px; /* Right margin for spacing */
   width: 80px; /* Fixed width */
+}
+.save-button:hover{
+  background-color: #216d26;
 }
 
 /* Cancel button style */
@@ -99,8 +109,12 @@
 
 /* Edit button style */
 .edit-button {
-  background-color: #2196f3; /* Blue background */
-  color: white; /* White text */
+  background-color: #2478bd; /* Blue background */
+  color: white;  /* White text */
+  font-weight: 500;
+}
+.edit-button:hover{
+  background-color: #1e394f;
 }
 
 /* Priority styles */

@@ -53,7 +53,7 @@
   outline: none;
 }
 
-button {
+.github-btn {
   background-color: #28a745; /* Green background */
   color: #fff;
   padding: 10px 20px;
@@ -64,6 +64,6 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
+.github-btn:hover {
   background-color: #218838;
 }

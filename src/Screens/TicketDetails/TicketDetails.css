@@ -47,7 +47,7 @@
 }
 
 .form-group select, .form-group input {
-    width: 85%;
+    width: 90%;
     padding: 0.5rem;
     box-sizing: border-box;
     background-color: #e4e5e6;
@@ -125,16 +125,18 @@
 
   }
 .button-submit {
-    background-color: rgb(3, 56, 27);
-    color: white;
+    background-color: #073011; /* Green background */
+    color: #fff;
+    padding: 10px 20px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    margin: 2px;
-    border-radius: 40px;
-    margin-right: 900px;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-right: 190vh;
 }
 .button-submit:hover {
-    background-color: #04674e;
+    background-color: #15672f;
 }
 
 .icon {
